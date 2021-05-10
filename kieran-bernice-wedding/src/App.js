@@ -5,6 +5,7 @@ import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core'
+import ImageUpload from './ImageUpload'
 
 function getModalStyle() {
   const top = 50;
@@ -33,6 +34,7 @@ function App() {
     const [modalStyle] = useState(getModalStyle)
     const [posts, setPosts] = useState([])
     const [open, setOpen] = useState(false)
+    const [openSignIn, setOpenSignIn] = useState(false)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -62,7 +64,7 @@ function App() {
 
     useEffect(() => {
         // this is where the code runs
-        db.collection('posts').onSnapshot(snapshot => {
+        db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
             // every time a new post is added, fire this code
             setPosts(snapshot.docs.map(doc => ({
                 id: doc.id, 
@@ -80,10 +82,30 @@ function App() {
             })
         })
         .catch((error) => alert(error.message))
+
+        setOpen(false)
+    }
+
+    const signIn = (event) => {
+        event.preventDefault()
+
+        auth
+            .signInWithEmailAndPassword(email, password)
+            .catch((error) => alert(error.message))
+
+        setOpenSignIn(false)
     }
 
   return (
     <div className="app">
+
+        {user?.displayName ? (
+            <ImageUpload username={user.displayName} />
+        ): (
+            <h3>Sorry, you need to login to upload</h3>
+        )}
+
+
         <Modal
             open={open}
             onClose={() => setOpen(false)}
@@ -111,7 +133,34 @@ function App() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Button type="submit" onClick={signUp}>SignUp</Button>
+                    <Button type="submit" onClick={signUp}>Sign Up</Button>
+                </form>
+                
+            </div>
+      </Modal>
+        
+        <Modal
+            open={openSignIn}
+            onClose={() => setOpenSignIn(false)}
+        >
+            <div style={modalStyle} className={classes.paper}>
+                <form className="app__signup">
+                    <center>
+                        <img className="app__headerImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt=""/>
+                    </center>
+                    <Input
+                        placeholder="email"
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Input
+                        placeholder="password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button type="submit" onClick={signIn}>Sign In</Button>
                 </form>
                 
             </div>
@@ -121,12 +170,21 @@ function App() {
           <img className="app__headerImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt=""/>
       </div>
 
-      <Button onClick={() => setOpen(true)}>Sign Up</Button>
+      {user? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>
+      ): (
+          <div className="app__loginContainer">
+              <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+              <Button onClick={() => setOpen(true)}>Sign Up</Button>
+          </div>
+          
+      )}
+      
 
 
       {
           posts.map(({id, post}) => (
-              <Post key={id} username={post.username} caption={post.caption} imageURL={post.imageURL}/>
+              <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
           ))
       }
 

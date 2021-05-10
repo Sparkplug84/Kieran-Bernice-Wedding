@@ -16,3 +16,8 @@
 .app__headerImage {
     height: 80px;
 }
+
+.app__signup {
+    display: flex;
+    flex-direction: column;
+}

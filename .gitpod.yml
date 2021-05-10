@@ -11,3 +11,4 @@ vscode:
     - kevinglasson.cornflakes-linter
     - hookyqr.beautify
     - dsznajder.es7-react-js-snippets@3.1.1:debf39b2c860197045844163048ca4dd
+    - coenraads.bracket-pair-colorizer@1.0.61:fa3401caa00b5b4897921a5ddb2cd8cd

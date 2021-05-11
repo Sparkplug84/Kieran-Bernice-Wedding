@@ -1,3 +1,20 @@
 .imageupload {
+    width: 100%;
+    background-color: #fff;
+}
+
+.imageupload__container {
     display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 10px auto;
+}
+
+.imageupload__progress {
+    width: 100%;
+}
+
+.imageupload__button {
+    background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
+    color: #fff !important;
 }

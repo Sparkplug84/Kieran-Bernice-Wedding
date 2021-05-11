@@ -5,6 +5,7 @@ import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu';
 import ImageUpload from './ImageUpload'
 
 function getModalStyle() {
@@ -99,11 +100,6 @@ function App() {
   return (
     <div className="app">
 
-        {user?.displayName ? (
-            <ImageUpload username={user.displayName} />
-        ): (
-            <h3>Sorry, you need to login to upload</h3>
-        )}
 
 
         <Modal
@@ -120,19 +116,19 @@ function App() {
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                    />
+                        />
                     <Input
                         placeholder="email"
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                    />
+                        />
                     <Input
                         placeholder="password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                    />
+                        />
                     <Button type="submit" onClick={signUp}>Sign Up</Button>
                 </form>
                 
@@ -142,7 +138,7 @@ function App() {
         <Modal
             open={openSignIn}
             onClose={() => setOpenSignIn(false)}
-        >
+            >
             <div style={modalStyle} className={classes.paper}>
                 <form className="app__signup">
                     <center>
@@ -159,7 +155,7 @@ function App() {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                    />
+                        />
                     <Button type="submit" onClick={signIn}>Sign In</Button>
                 </form>
                 
@@ -167,26 +163,38 @@ function App() {
       </Modal>
 
       <div className="app__header">
-          <img className="app__headerImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt=""/>
+          <h1 className="app__headerlogo">Kieran &amp; Bernice</h1>
+          {/* <img className="app__headerImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt=""/> */}
+          {/* {user? (
+            <Button onClick={() => auth.signOut()}>Logout</Button>
+            ): (
+            <div className="app__loginContainer">
+                <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+                <Button onClick={() => setOpen(true)}>Sign Up</Button>
+            </div>
+            
+            )} */}
+            <MenuIcon className="app__headericon"/>
       </div>
 
-      {user? (
-          <Button onClick={() => auth.signOut()}>Logout</Button>
-      ): (
-          <div className="app__loginContainer">
-              <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-              <Button onClick={() => setOpen(true)}>Sign Up</Button>
-          </div>
-          
-      )}
       
+      
+      {user?.displayName ? (
+          <ImageUpload username={user.displayName} />
+        ): (
+            <h4>Please sign in/sign up to post something</h4>
+        )}
+
+        <div className="app__posts">
+            {
+                posts.map(({id, post}) => (
+                    <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+                ))
+            }
+        </div>
 
 
-      {
-          posts.map(({id, post}) => (
-              <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
-          ))
-      }
+      
 
     </div>
   );

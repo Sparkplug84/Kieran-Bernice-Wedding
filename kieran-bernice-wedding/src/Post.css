@@ -26,3 +26,50 @@
 .post__avatar {
     margin-right: 10px;
 }
+
+
+.post__commentbox {
+    display: flex;
+    margin-top: 10px;
+}
+
+.post__input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-top: 1px solid lightgray;
+}
+
+.post__button {
+    background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
+    color: #fff !important;
+    padding: 0 20px;
+    word-wrap: unset;
+    border: none;
+}
+
+.post__input:focus {
+    outline: none;
+}
+
+.post__comments {
+    padding: 20px;
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: auto;
+    border-top: 1px solid lightgrey;
+}
+
+.post__comments p:first-of-type {
+    margin-top: 10px;
+}
+
+.post__comments:empty {
+    display: none;
+}
+
+.post__comments::before {
+    content: 'Comments';
+    font-weight: bold;
+    padding-bottom: 5px;
+}

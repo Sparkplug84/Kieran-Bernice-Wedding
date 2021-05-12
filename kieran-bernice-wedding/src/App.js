@@ -165,7 +165,7 @@ function App() {
       <div className="app__header">
           <h1 className="app__headerlogo">Kieran &amp; Bernice</h1>
           {/* <img className="app__headerImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt=""/> */}
-          {/* {user? (
+          {user? (
             <Button onClick={() => auth.signOut()}>Logout</Button>
             ): (
             <div className="app__loginContainer">
@@ -173,7 +173,7 @@ function App() {
                 <Button onClick={() => setOpen(true)}>Sign Up</Button>
             </div>
             
-            )} */}
+            )}
             <MenuIcon className="app__headericon"/>
       </div>
 
@@ -188,7 +188,7 @@ function App() {
         <div className="app__posts">
             {
                 posts.map(({id, post}) => (
-                    <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+                    <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl}/>
                 ))
             }
         </div>

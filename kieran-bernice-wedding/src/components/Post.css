@@ -1,8 +1,20 @@
-.post {
+.posts {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
     max-width: 900px;
+}
+
+.post {
+    max-width: 100%;
     background-color: #fff;
     border: 1px solid lightgray;
-    margin-bottom: 45px;
+    margin: 0 15px 20px;
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
+}
+
+.posts h1 {
+    text-align: center;
 }
 
 .post__image {

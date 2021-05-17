@@ -7,7 +7,8 @@ import './ImageUpload.css'
 function ImageUpload({username}) {
     const [caption, setCaption] = useState('')
     const [progress, setProgress] = useState(0)
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState('')
+    const [totalLikes, setTotalLikes] = useState(0)
 
     const handleChange = (e) => {
         if (e.target.files[0]) {
@@ -15,44 +16,58 @@ function ImageUpload({username}) {
         }
     }
 
-    const handleUpload = () => {
-        const uploadTask = storage.ref(`images/${image.name}`).put(image)
+    const handleUpload = (event) => {
+        event.preventDefault()
 
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                // progress function...
-                const progress = Math.round(
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                );
-                setProgress(progress)
-            },
-            (error) => {
-                // Error function...
-                console.log(error)
-                alert(error.message)
-            },
-            () => {
-                // complete function ...
-                storage
-                    .ref("images")
-                    .child(image.name)
-                    .getDownloadURL()
-                    .then(url => {
-                        // post image inside db
-                        db.collection("posts").add({
-                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                            caption: caption,
-                            imageUrl: url,
-                            username: username,
-                        })
+        if (image === '') {
+            db.collection("posts").add({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                caption: caption,
+                imageUrl: image,
+                totalLikes: totalLikes,
+                username: username
+            })
+        } else {
+            
+            const uploadTask = storage.ref(`images/${image.name}`).put(image)
 
-                        setProgress(0)
-                        setCaption('')
-                        setImage(null)
-                })
-            }
-        )
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    // progress function...
+                    const progress = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                    setProgress(progress)
+                },
+                (error) => {
+                    // Error function...
+                    console.log(error)
+                    alert(error.message)
+                },
+                () => {
+                    // complete function ...
+                    storage
+                        .ref("images")
+                        .child(image.name)
+                        .getDownloadURL()
+                        .then(url => {
+                            // post image inside db
+                            db.collection("posts").add({
+                                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                caption: caption,
+                                imageUrl: url,
+                                totalLikes: totalLikes,
+                                username: username,
+                            })
+                            setCaption('')
+                            setImage(null)
+                            setProgress(0)
+                    })
+                }
+            )
+        }
+        
     }
 
     return (

@@ -6,6 +6,15 @@
     font-family: 'Abel', cursive;
 }
 
+body {
+    background-color: #d3d3d34a;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .app {
     background-color: #fafafa;
 }
@@ -17,17 +26,23 @@
 .app__header {
     background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
     object-fit: contain;
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid lightgray;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky !important;
+}
+
+.app__menulink {
+    color: #fff !important;
 }
 
 .app__headerImage {
     height: 80px;
+    width: auto;
     object-fit: contain;
-    color: #fff;
+    position: relative;
 }
 
 .app__signup {

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import Signup from '../components/Signup'
 
 export class signup extends Component {
     render() {
         return (
-            <div>
-                <h1>Sign up page</h1>
+            <div className="signup__page">
+                <Signup />
             </div>
         )
     }

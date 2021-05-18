@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
+import Login from '../components/Login'
+import '../components/Login.css'
 
-export class login extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Login page</h1>
-            </div>
-        )
-    }
+function login() {
+    return (
+        <div className="login__page">
+            <Login />
+        </div>
+    )
 }
 
 export default login

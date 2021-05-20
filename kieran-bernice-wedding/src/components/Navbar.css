@@ -1,0 +1,19 @@
+.navbar__drawertitle {
+    text-align: center;
+    color: #fff;
+    font-weight: 500;
+    margin: 30px auto 20px;
+}
+
+.navbar__closebutton {
+    position: absolute;
+    right: 0;
+    color: #fff;
+    padding: 10px;
+    font-size: 2.5rem !important;
+    cursor: pointer;
+}
+
+.navbar__menubutton {
+    font-size: 2.5rem !important;
+}

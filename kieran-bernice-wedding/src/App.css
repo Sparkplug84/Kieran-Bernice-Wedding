@@ -25,12 +25,8 @@ body {
 
 .app__header {
     background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
-    object-fit: contain;
+    width: 100%;
     padding: 10px;
-    border-bottom: 1px solid lightgray;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     position: sticky !important;
 }
 
@@ -43,6 +39,7 @@ body {
     width: auto;
     object-fit: contain;
     position: relative;
+    margin-right: 20px;
 }
 
 .app__signup {
@@ -71,4 +68,14 @@ body {
     .app__headerlogo {
         font-size: 30px;
     }
+    .app__headerImage {
+    height: 60px;
+    margin-right: 0px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .app__headerlogo {
+    font-size: 25px;
+}
 }

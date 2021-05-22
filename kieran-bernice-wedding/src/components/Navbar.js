@@ -139,7 +139,7 @@ function Navbar({user, selected}) {
             <CloseIcon onClick={handleDrawerClose} className="navbar__closebutton"/>
             <div className={drawerContainer}>
                 <h1 className="navbar__drawertitle">Menu</h1>
-                <hr style={{width: "100%", backgroundColor: "#fff", marginBottom: "15px"}}/>
+                <hr className="navbar__slidemenuhr"/>
                 {getDrawerChoices()}</div>
             </Drawer>
 
@@ -149,19 +149,19 @@ function Navbar({user, selected}) {
 
     const getDrawerChoices = () => {
         return headersData.map(({ label, href }) => {
-        return (
-            <Button
-            {...{
-                key: label,
-                color: "inherit",
-                to: href,
-                component: Link,
-                className: drawerButtons
-            }}
-            >
-                {label}
-            </Button>
-        );
+            return (
+                <Button
+                {...{
+                    key: label,
+                    color: "inherit",
+                    to: href,
+                    component: Link,
+                    className: drawerButtons
+                }}
+                >
+                    {label}
+                </Button>
+            );
         });
     };
 

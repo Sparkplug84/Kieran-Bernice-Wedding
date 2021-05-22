@@ -17,3 +17,8 @@
 .navbar__menubutton {
     font-size: 2.5rem !important;
 }
+
+.navbar__slidemenuhr {
+    width: 100%;
+    background-color: #fff;
+}

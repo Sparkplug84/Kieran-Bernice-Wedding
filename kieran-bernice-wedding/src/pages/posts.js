@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { db } from '../firebase';
 import firebase from 'firebase';
 import '../components/Post.css';
+import Search from '../components/Search'
 
 import ImageUpload from '../components/ImageUpload'
 import Post from '../components/Post'
@@ -30,6 +31,7 @@ function Posts() {
 
     return (
         <div className="posts">
+            <Search user={user}/>
             <h1>Posts</h1>
             {user?.displayName ? (
                 <ImageUpload username={user.displayName} />

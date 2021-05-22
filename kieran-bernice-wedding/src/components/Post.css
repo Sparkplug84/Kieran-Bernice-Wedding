@@ -5,12 +5,115 @@
     max-width: 900px;
 }
 
+.posts__searchContainer {
+    position: relative;
+    display: flex;
+    width: 50%;
+}
+
+.posts__searchContainerInner {
+    display: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
+    z-index: -1;
+}
+
+.posts__search {
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    background-color: rgba(119, 119, 119, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
+}
+
+.posts__searchBack {
+    display: none;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    background-color: rgba(119, 119, 119, 0.3);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    cursor: pointer;
+}
+
+.searchBox {
+    display: none;
+    flex-grow: 1;
+    font-size: 16px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border: none;
+    background-color: rgba(119, 119, 119, 0.3);
+}
+
+.searchBox:focus {
+    outline: none;
+}
+
+.posts__searchBackIcon {
+    transform: translateY(50%);
+}
+
+.posts__searchIcon {
+    transform: translateY(50%);
+}
+
+.posts__searchResults {
+    position: absolute;
+    top: 55px;
+    width: 100%;
+    height: fit-content;
+    max-height: 450px;
+    min-height: 200px;
+    background-color: rgb(205, 205, 205);
+    display: none;
+    border-radius: 25px;
+    overflow-y: scroll;
+    z-index: 1;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
+}
+
+.posts__searchResults::-webkit-scrollbar {
+  display:none;
+}
+
+.posts__searchResults ul {
+    margin: 10px;
+    padding: 0;
+}
+
+.posts__searchResults ul li {
+    list-style-type: none;
+}
+
+.posts__searchResults ul li a {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.posts__searchResults ul li a h4 {
+    margin-left: 5px;
+}
+
 .post {
     max-width: 100%;
     background-color: #fff;
     border: 1px solid lightgray;
     border-radius: 8px;
-    margin: 0 15px 20px;
+    margin: 0 0 20px;
     box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
 }
 

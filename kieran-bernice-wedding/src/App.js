@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { auth } from './firebase'
 import './App.css';
+import Search from './components/Search'
 
 // Components
 import Navbar from './components/Navbar'
@@ -25,18 +26,19 @@ function App() {
             }
         })
     }, [])
+
     
-    const homePage = () => (
-    <Route exact path="/" component={home}/>
-)
+//     const homePage = () => (
+//     <Route exact path="/" component={home}/>
+// )
 
     const sitePages = () => (
         <>
-            <Navbar user={user} selected/>
+            <Navbar selected/>
             <div className="container">
                 <Route exact path="/login" component={login}/>
                 <Route exact path="/signup" component={signup}/>
-                <Route exact path="/posts" component={posts}/>
+                <Route user={user} exact path="/posts" component={posts}/>
             </div>
         </>
     )
@@ -45,7 +47,7 @@ function App() {
         <div className="App">
             <Router>
                     <Switch>
-                        <Route exact path="/" component={homePage}/>
+                        <Route exact path="/" component={home}/>
                         <Route component={sitePages} />
                     </Switch>
             </Router>

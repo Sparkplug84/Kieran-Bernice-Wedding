@@ -3,6 +3,8 @@ import { db } from '../firebase';
 import firebase from 'firebase';
 import '../components/Post.css';
 import Search from '../components/Search'
+import ProfileIcon from '../components/ProfileIcon'
+import Notification from '../components/Notification'
 
 import ImageUpload from '../components/ImageUpload'
 import Post from '../components/Post'
@@ -31,7 +33,11 @@ function Posts() {
 
     return (
         <div className="posts">
-            <Search user={user}/>
+            <div className="posts__toolbar">
+                <Search user={user}/>
+                <ProfileIcon user={user}/>
+                <Notification  user={user}/>
+            </div>
             <h1>Posts</h1>
             {user?.displayName ? (
                 <ImageUpload username={user.displayName} />

@@ -9,7 +9,6 @@ function Search({ user }) {
     const [users, setUsers] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
     const [filteredUsers, setFilteredUsers] = useState([])
-    const searchContainer = document.getElementsByClassName('sposts__searchContainer')
     
     const collapseSearch = () => {
         document.getElementsByClassName('posts__search')[0].style.display = 'block'
@@ -17,6 +16,7 @@ function Search({ user }) {
         document.getElementsByClassName('searchBox')[0].style.display = 'none'
         document.getElementsByClassName('posts__searchResults')[0].style.display = 'none'
         document.getElementsByClassName('posts__searchContainerInner')[0].style.display = 'none'
+        document.getElementsByClassName('profileIcon__container')[0].style.display = 'block'
         document.getElementsByClassName('searchBox')[0].value = ''
     }
     
@@ -25,7 +25,16 @@ function Search({ user }) {
         document.getElementsByClassName('posts__searchBack')[0].style.display = 'block'
         document.getElementsByClassName('searchBox')[0].style.display = 'block'
         document.getElementsByClassName('posts__searchContainerInner')[0].style.display = 'block'
+        document.getElementsByClassName('profileIcon__container')[0].style.display = 'block'
+        const mq = window.matchMedia( "(max-width: 500px)" );
+
+        if (expandSearch && mq.matches) {
+            console.log('hello')
+            document.getElementsByClassName('profileIcon__container')[0].style.display = 'none'
+        }
     }
+
+    
 
     useEffect(() => {
         db.collection('users').onSnapshot(snapshot => {

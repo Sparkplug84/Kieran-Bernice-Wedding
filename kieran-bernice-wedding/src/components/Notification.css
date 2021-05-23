@@ -1,0 +1,12 @@
+.notification__container {
+    height: 40px;
+    width: 40px;
+    font-weight: 40px;
+    background-color: red;
+}
+
+.notification__back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

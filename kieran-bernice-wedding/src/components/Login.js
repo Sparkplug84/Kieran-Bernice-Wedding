@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { auth } from '../firebase'
+import firebase from 'firebase'
 import Button from '@material-ui/core/Button'
 import './Login.css'
 

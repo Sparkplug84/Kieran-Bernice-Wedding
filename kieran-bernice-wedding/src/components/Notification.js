@@ -6,12 +6,9 @@ import './Notification.css'
 function Notification() {
     return (
         <div className="notification__container">
-            {/* <div className="notification__back">
-                <ArrowUpwardIcon className="notification__backIcon"/>
+            <div className="notification__icon">
+                <NotificationsIcon className="notification__expandIcon"/>
             </div>
-            <div className="notification__expand">
-                <Notification className="notification__expandIcon"/>
-            </div>             */}
         </div>
     )
 }

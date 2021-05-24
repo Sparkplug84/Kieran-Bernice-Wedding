@@ -13,7 +13,7 @@
 .posts__searchContainer {
     position: relative;
     display: flex;
-    /* width: 50%; */
+    /* width: 33%; */
     margin-right: 5px;
 }
 
@@ -202,6 +202,6 @@
 
 @media (max-width: 500px) {
     .posts__searchContainer {
-        width: 100% !important;
+        /* width: 100% !important; */
     }
 }

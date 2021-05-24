@@ -1,12 +1,18 @@
 .notification__container {
-    height: 40px;
-    width: 40px;
-    font-weight: 40px;
-    background-color: red;
+    /* width: 33%; */
+    /* display: flex; */
+    cursor: pointer;
+    margin-left: 10px;
+    /* justify-content: right; */
 }
 
-.notification__back {
+.notification__icon {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(119, 119, 119, 0.3);
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
+    border-radius: 50%;
 }

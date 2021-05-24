@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import { auth, db } from '../firebase'
+import { db } from '../firebase'
 import Avatar from '@material-ui/core/Avatar';
 
 function Search({ user }) {
@@ -9,7 +9,9 @@ function Search({ user }) {
     const [users, setUsers] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
     const [filteredUsers, setFilteredUsers] = useState([])
-    
+    const smallScreen = window.matchMedia( "(max-width: 500px)" );
+    const bigScreen = window.matchMedia( "(min-width: 501px)" );
+
     const collapseSearch = () => {
         document.getElementsByClassName('posts__search')[0].style.display = 'block'
         document.getElementsByClassName('posts__searchBack')[0].style.display = 'none'
@@ -17,7 +19,18 @@ function Search({ user }) {
         document.getElementsByClassName('posts__searchResults')[0].style.display = 'none'
         document.getElementsByClassName('posts__searchContainerInner')[0].style.display = 'none'
         document.getElementsByClassName('profileIcon__container')[0].style.display = 'block'
+        document.getElementsByClassName('notification__container')[0].style.display = 'block'
+        // document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = 'space-between'
+        document.getElementsByClassName('posts__searchContainer')[0].style.width = null
         document.getElementsByClassName('searchBox')[0].value = ''
+        
+        if (collapseSearch && bigScreen.matches) {
+            console.log('what now')
+            document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = 'space-between'
+            document.getElementsByClassName('profileIcon__container')[0].style.width = null
+            document.getElementsByClassName('notification__container')[0].style.width = null
+            document.getElementsByClassName('posts__searchContainer')[0].style.width = null
+        }
     }
     
     const expandSearch = () => {
@@ -26,12 +39,23 @@ function Search({ user }) {
         document.getElementsByClassName('searchBox')[0].style.display = 'block'
         document.getElementsByClassName('posts__searchContainerInner')[0].style.display = 'block'
         document.getElementsByClassName('profileIcon__container')[0].style.display = 'block'
-        const mq = window.matchMedia( "(max-width: 500px)" );
+        document.getElementsByClassName('notification__container')[0].style.display = 'block'
+        
 
-        if (expandSearch && mq.matches) {
+        if (expandSearch && smallScreen.matches) {
             console.log('hello')
             document.getElementsByClassName('profileIcon__container')[0].style.display = 'none'
+            document.getElementsByClassName('notification__container')[0].style.display = 'none'
+            document.getElementsByClassName('posts__searchContainer')[0].style.width = '100%'
         }
+        if (expandSearch && bigScreen.matches) {
+            console.log('goodbye')
+            document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = null
+            document.getElementsByClassName('profileIcon__container')[0].style.width = '33%'
+            document.getElementsByClassName('notification__container')[0].style.width = '33%'
+            document.getElementsByClassName('posts__searchContainer')[0].style.width = '33%'
+        }
+        
     }
 
     

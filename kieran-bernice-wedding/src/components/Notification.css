@@ -1,9 +1,7 @@
 .notification__container {
-    /* width: 33%; */
-    /* display: flex; */
+    position: relative;
     cursor: pointer;
     margin-left: 10px;
-    /* justify-content: right; */
 }
 
 .notification__icon {
@@ -16,3 +14,42 @@
     box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
     border-radius: 50%;
 }
+
+.notification__dropdown {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    height: fit-content;
+    max-height: 450px;
+    min-height: 200px;
+    background-color: rgb(205, 205, 205);
+    display: none;
+    border-radius: 20px;
+    overflow-y: scroll;
+    z-index: 1;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
+}
+
+.notification__dropdown::-webkit-scrollbar {
+    display: none;
+}
+
+.notification__dropdown h3 {
+    margin: 10px;
+}
+
+.notification__alert {
+    color: #8500ff;
+    /* color: linear-gradient(to bottom right, #ff0000, #8500ff) !important; */
+}
+
+/* @media(max-width: 500px) {
+    .notification__dropdown {
+        display: block;
+        width: 95vw;
+        position: absolute;
+        left: calc(-95vw + 100%);
+    }
+} */

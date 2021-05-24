@@ -199,9 +199,3 @@
     font-weight: bold;
     padding-bottom: 5px;
 }
-
-@media (max-width: 500px) {
-    .posts__searchContainer {
-        /* width: 100% !important; */
-    }
-}

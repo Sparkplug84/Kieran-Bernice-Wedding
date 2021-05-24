@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { auth } from './firebase'
 import './App.css';
-import Search from './components/Search'
 
 // Components
 import Navbar from './components/Navbar'

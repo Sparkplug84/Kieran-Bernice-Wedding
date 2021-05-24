@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { db } from '../firebase';
-import firebase from 'firebase';
 import '../components/Post.css';
 import Search from '../components/Search'
 import ProfileIcon from '../components/ProfileIcon'

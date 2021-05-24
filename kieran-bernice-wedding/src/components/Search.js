@@ -20,12 +20,10 @@ function Search({ user }) {
         document.getElementsByClassName('posts__searchContainerInner')[0].style.display = 'none'
         document.getElementsByClassName('profileIcon__container')[0].style.display = 'block'
         document.getElementsByClassName('notification__container')[0].style.display = 'block'
-        // document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = 'space-between'
         document.getElementsByClassName('posts__searchContainer')[0].style.width = null
         document.getElementsByClassName('searchBox')[0].value = ''
         
         if (collapseSearch && bigScreen.matches) {
-            console.log('what now')
             document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = 'space-between'
             document.getElementsByClassName('profileIcon__container')[0].style.width = null
             document.getElementsByClassName('notification__container')[0].style.width = null
@@ -43,17 +41,16 @@ function Search({ user }) {
         
 
         if (expandSearch && smallScreen.matches) {
-            console.log('hello')
             document.getElementsByClassName('profileIcon__container')[0].style.display = 'none'
             document.getElementsByClassName('notification__container')[0].style.display = 'none'
             document.getElementsByClassName('posts__searchContainer')[0].style.width = '100%'
         }
         if (expandSearch && bigScreen.matches) {
-            console.log('goodbye')
             document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = null
             document.getElementsByClassName('profileIcon__container')[0].style.width = '33%'
             document.getElementsByClassName('notification__container')[0].style.width = '33%'
             document.getElementsByClassName('posts__searchContainer')[0].style.width = '33%'
+            document.getElementsByClassName('notification__icon')[0].style.float = 'right'
         }
         
     }

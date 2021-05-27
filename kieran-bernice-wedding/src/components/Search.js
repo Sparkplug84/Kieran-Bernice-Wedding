@@ -24,10 +24,11 @@ function Search({ user }) {
         document.getElementsByClassName('searchBox')[0].value = ''
         
         if (collapseSearch && bigScreen.matches) {
-            document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = 'space-between'
-            document.getElementsByClassName('profileIcon__container')[0].style.width = null
-            document.getElementsByClassName('notification__container')[0].style.width = null
-            document.getElementsByClassName('posts__searchContainer')[0].style.width = null
+            document.getElementsByClassName('posts__toolbar')[0].style.justifyContent = null
+            document.getElementsByClassName('profileIcon__container')[0].style.width = '33%'
+            document.getElementsByClassName('notification__container')[0].style.width = '33%'
+            document.getElementsByClassName('posts__searchContainer')[0].style.width = '33%'
+            document.getElementsByClassName('notification__icon')[0].style.float = 'right'
         }
     }
     
@@ -51,6 +52,10 @@ function Search({ user }) {
             document.getElementsByClassName('notification__container')[0].style.width = '33%'
             document.getElementsByClassName('posts__searchContainer')[0].style.width = '33%'
             document.getElementsByClassName('notification__icon')[0].style.float = 'right'
+            // To turn the notification expandion off when search box is active
+            document.getElementsByClassName('notification__dropdown')[0].style.display = 'none'
+            document.getElementsByClassName('notification__icon')[0].style.display = 'flex'
+            document.getElementsByClassName('notification__expandContainer')[0].style.display = 'none'
         }
         
     }

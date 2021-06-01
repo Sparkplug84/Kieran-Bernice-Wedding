@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import MenuIcon from '@material-ui/icons/Menu';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,27 +9,26 @@ import Drawer from '@material-ui/core/Drawer'
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-
 import './Navbar.css'
 
 // Link data for navbar
 const headersData = [
     {
-      label: "Home",
-      href: "/",
+        label: "Home",
+        href: "/",
     },
-  {
-    label: "Posts",
-    href: "/posts",
-  },
-  {
-    label: "Login",
-    href: "/login",
-  },
-  {
-    label: "Sign Up",
-    href: "/signup",
-  },
+    {
+        label: "Posts",
+        href: "/posts",
+    },
+    {
+        label: "Login",
+        href: "/login",
+    },
+    {
+        label: "Sign Up",
+        href: "/signup",
+    },
 ];
 
 // styles used in navbar
@@ -148,9 +147,11 @@ function Navbar({user, selected}) {
     };
 
     const getDrawerChoices = () => {
+        const handleDrawerClose = () =>
+        setState((prevState) => ({ ...prevState, drawerOpen: false }));
         return headersData.map(({ label, href }) => {
             return (
-                <Button
+                <Button onClick={handleDrawerClose}
                 {...{
                     key: label,
                     color: "inherit",

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { db } from '../firebase';
 import firebase from 'firebase'
 import Avatar from '@material-ui/core/Avatar'
 import './ProfileIcon.css'
@@ -6,17 +7,31 @@ import './ProfileIcon.css'
 
 
 function ProfileIcon() {
+    const [dbuser, setdbuser] = useState(null)
     
     const user = firebase.auth().currentUser;
+    
+    const getUser = async () => {
+        try {
+        const documentSnapshot = await db
+            .collection('users')
+            .doc(user.uid)
+            .get();
 
-    // db.collection('users')j
-    //  .doc('uid') // change to the current user id 
-    //  .get().then((user)=>{
-    //      if(user.exists){
-    //          // now you can do something with user
-    //          console.log(user.data())
-    //      }
-    //  })
+        const userData = documentSnapshot.data();
+            setdbuser(userData);
+            } catch {
+            //do whatever
+        }
+    };
+
+    // Get user on mount
+    useEffect(() => {
+        getUser();
+    }, []);
+    
+
+    
     
 
     return (
@@ -24,8 +39,8 @@ function ProfileIcon() {
             {
                 user && (
                     <a className="profileIcon__link" href="/">
-                        <Avatar className="profileIcon__ image" src={user.photoURL} />
-                        <p className="profileIcon__name">{user.displayName}</p>
+                        <Avatar className="profileIcon__ image" src={dbuser?.photoURL} />
+                        <p className="profileIcon__name">{dbuser?.displayName}</p>
                     </a>
 
                 )

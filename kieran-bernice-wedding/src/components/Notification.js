@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import './Notification.css'
+import { useEffect } from 'react';
+import { db } from '../firebase';
+import firebase from 'firebase'
+import Avatar from '@material-ui/core/Avatar'
+import { useStateValue } from '../StateProvider'
 
 function Notification() {
+
+    const user = firebase.auth().currentUser;
+    const [{ notifications }, dispatch] = useStateValue()
 
     // const [notificationsOpen, setNotificationsOpen] = useState(false)
     const smallScreen = window.matchMedia( "(max-width: 500px)" );
@@ -65,6 +73,27 @@ function Notification() {
             
     }
 
+    useEffect(() => {
+        db.collection('posts').onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
+                if(user && doc.data().username === user.displayName) { // Checking for only the currently logged in user posts
+                    db.collection('posts').doc(doc.id).collection('comments').onSnapshot((snapshot2) => {
+                        snapshot2.docs.map(doc2 => {
+                            if(user && doc2.data().username !== user.displayName) {
+                                dispatchEvent({
+                                    type: 'ADD_TO_NOTICIATIONS',
+                                    item: {
+                                        notification: doc.data()
+                                    }
+                                })
+                            }
+                        })
+                    })
+                }
+            })
+        })
+    }, [user])
+
 
     return (
         <div className="notification__container" >
@@ -76,6 +105,29 @@ function Notification() {
                 <NotificationsIcon className="notification__expandIcon2 notification__alert"/>
             </div>
             <div className="notification__dropdown">
+                {
+                    notifications.length === 0 ? (
+                        <div className="notification__noNotification">
+                            <img src={user && user.photoURL} className="notification__profileIcon" />
+                            <h3 className="notification__noNotificationText">There are no notifications at the moment.</h3>
+                        </div>
+                    ) : (
+                        console.log()
+                    )
+                }
+
+                {
+                    notifications.map(({ notification }) => (
+                        <a href="#" className="notification__title">
+                            <div className="notification__optionDrop">
+                            <Avatar src="" />
+                            <div className="notification__info">
+                                <h3>{notification.username} <span>commented to your post.</span></h3>
+                            </div>
+                            </div>
+                        </a>
+                    ))
+                }
             </div>
         </div>
         

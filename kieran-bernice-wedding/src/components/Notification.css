@@ -63,14 +63,10 @@
 
 .notification__alert {
     color: #8500ff;
-    /* color: linear-gradient(to bottom right, #ff0000, #8500ff) !important; */
 }
 
-/* @media(max-width: 500px) {
-    .notification__dropdown {
-        display: block;
-        width: 95vw;
-        position: absolute;
-        left: calc(-95vw + 100%);
-    }
-} */
+.notification__profileIcon {
+    height: 100px;
+    width: 100px;
+    z-index: 1;
+}

@@ -17,13 +17,13 @@ function Signup() {
             if (auth.user) {
                 auth.user.updateProfile({
                     displayName: username,
-                    photoURL: ""
+                    photoURL: "https://i.ibb.co/1zmBtwr/84241059-189132118950875-4138507100605120512-n.jpg"
                 }).then((s) => {
                     db.collection('users').doc(auth.user.uid).set({
                         uid: auth.user.uid,
                         displayName: auth.user.displayName,
                         email: auth.user.email,
-                        photoURL: "",
+                        photoURL: "https://i.ibb.co/1zmBtwr/84241059-189132118950875-4138507100605120512-n.jpg",
                         bio: ""
                     }).then((r) => {
                         history.push("/posts")

@@ -24,7 +24,7 @@ function Posts() {
 
     let recentPosts = posts ? (
         posts.map(({id, post}) => (
-            <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl} likes={post.totalLikes} createdAt={post.createdAt}/>
+            <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl} likes={post.totalLikes} createdAt={post.createdAt} postUserId={post.uid}/>
         ))
     ) : (
         <p>Loading...</p>
@@ -37,12 +37,13 @@ function Posts() {
                 <ProfileIcon user={user}/>
                 <Notification  user={user}/>
             </div>
-            <h1>Posts</h1>
-            {user?.displayName ? (
-                <ImageUpload username={user.displayName} />
+            {/* {user?.displayName ? (
+                <ImageUpload username={user?.displayName} />
                 ): (
                     <h4>Please sign in/sign up to post something</h4>
-                )}
+                )} */}
+
+            <ImageUpload username={user?.displayName} />
             {recentPosts}
         </div>
     )

@@ -1,13 +1,36 @@
 .imageupload {
     width: 100%;
-    background-color: #fff;
+    background-color: rgba(119, 119, 119, 0.3);
+    box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
+    border-radius: 20px;
+    margin: 20px 0;
 }
 
 .imageupload__container {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 90%;
     margin: 10px auto;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.imageupload__post {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.imageupload__post input {
+    width: 100%;
+    margin-left: 10px;
+    border: none;
+    border-radius: 20px;
+    padding-left: 10px;
+}
+
+.imageupload__post input:focus {
+    outline: none;
 }
 
 .imageupload__progress {
@@ -17,4 +40,42 @@
 .imageupload__button {
     background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
     color: #fff !important;
+    width: 100%;
+}
+
+.imageupload__button:hover {
+    background-image: linear-gradient(to bottom right, #8500ff, #ff0000);
+}
+
+/* @media (max-width: 663.95px) {
+    .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+        width: 100% !important;
+    }
+} */
+
+.MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+    width: 95% !important;
+}
+
+.MuiDialog-paperWidthSm {
+    max-width: 600px !important;
+}
+
+.MuiDialog-paper {
+    margin: 0 !important;
+}
+
+.dialog__container {
+    padding: 10px;
+}
+
+.dialogHeader__container {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (min-width: 600px) {
+    .imageupload__container {
+        width: 50%;
+    }
 }

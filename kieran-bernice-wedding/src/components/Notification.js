@@ -108,8 +108,8 @@ function Notification() {
                 {
                     notifications.length === 0 ? (
                         <div className="notification__noNotification">
-                            <img src={user && user.photoURL} className="notification__profileIcon" />
-                            <h3 className="notification__noNotificationText">There are no notifications at the moment.</h3>
+                            {/* <img src={user && user.photoURL} className="notification__profileIcon" /> */}
+                            <p className="notification__text">There are no notifications at the moment.</p>
                         </div>
                     ) : (
                         console.log()

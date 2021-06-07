@@ -111,9 +111,27 @@ function ImageUpload({username}) {
                 <Dialog open={open} onClose={handleClose} scroll='body' className="dialog" >
                     <div className="dialog__container">
                         <div className="dialogHeader__container">
-                            <h3>Create Post</h3>
-                            <CloseIcon onClick={handleClose} />
+                            <h4 className="dialog__header">Create Post</h4>
+                            <CloseIcon onClick={handleClose} className="dialog__closeIcon"/>
                         </div>
+                        <hr/>
+                        <div className="dialogUser__container">
+                            <Avatar src={user?.photoURL}/>
+                            <h4 className="dialog__user">{user?.displayName}</h4>
+                        </div>
+                        <div className="dialog__inputContainer">
+                            <input type="file" className="dialog__input" accept="image/*"/>
+                            <textarea value={caption} onChange={(e) => setCaption(e.target.value)} rows="4" placeholder={`How is the wedding going ${user?.displayName}...?`}></textarea>
+                        </div>
+                        <div className={`dialog__imagePreviewContainer ${!image && "dialog__input"}`}>
+                            <img src={imageURL} className="dialog__imagePreview"/>
+                        </div>
+                        <progress className="imageupload__progress" value={progress} max="100" hidden={!progress}></progress>
+                        <div className="dialog__imageUpload">
+                            <h4>Add a photo...</h4>
+
+                        </div>
+
                     </div>
                 </Dialog>
             

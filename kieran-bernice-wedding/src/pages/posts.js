@@ -14,7 +14,7 @@ function Posts() {
 
     useEffect(() => {
         // this is where the code runs
-        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+        db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
             // every time a new post is added, fire this code
             setPosts(snapshot.docs.map(doc => ({
                 id: doc.id, 

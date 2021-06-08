@@ -2,7 +2,7 @@
     width: 100%;
     background-color: rgba(119, 119, 119, 0.3);
     box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
-    border-radius: 20px;
+    border-radius: 8px;
     margin: 20px 0;
 }
 
@@ -81,7 +81,7 @@ progress[value]::-webkit-progress-value {
 
 .dialog__container {
     padding: 15px;
-    background-color: rgba(119, 119, 119, 0.3);
+    background-color: #fff;
 }
 
 .dialogHeader__container {
@@ -124,11 +124,43 @@ progress[value]::-webkit-progress-value {
     background-color: rgba(119, 119, 119, 0);
     border: none;
     border-radius: 10px;
-    
 }
 
 .dialog__inputContainer textarea:focus {
     outline: none;
+}
+
+.dialog__imagePreview {
+    height: 100px;
+    width: auto;
+    border-radius: 8px;
+}
+
+.dialog__imageUpload {
+    margin-top: 15px;
+}
+
+.dialog__addPhoto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px #000 !important;
+    border-radius: 4px;
+    padding: 5px;
+    cursor: pointer;
+    margin-bottom: 15px !important;
+    width: 100%;
+}
+
+.dialog__addPhoto:hover {
+    color: #fff;
+    background-image: 
+        linear-gradient(to bottom right, #ff0000, #8500ff);
+    border: 1px solid rgba(0, 0, 0, 0) !important;
+}
+
+.dialog__imageUpload h4 {
+    margin-right: 10px;
 }
 
 @media (min-width: 600px) {

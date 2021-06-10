@@ -18,8 +18,18 @@ function ImageUpload({username}) {
     const [totalLikes, setTotalLikes] = useState(0)
     const [open, setOpen] = useState(false)
     // const [scroll, setScroll] = useState('paper')
+    // const myRef = useRef();
 
-
+  /*
+   *  This is the main different
+   */
+    // useEffect(()=>{
+    //     if (myRef && myRef.current) {
+    //         const { textarea } = myRef.current
+    //         textarea.focus()
+    //     }
+    // })
+    
     const handleChange = (e) => {
         if (e.target.files[0]) {
             setImage(e.target.files[0])
@@ -29,6 +39,7 @@ function ImageUpload({username}) {
 
     const uploadFileWithClick = () => {
         document.getElementsByClassName('dialog__input')[0].click()
+
     }
 
     const handleClickOpen = () => {
@@ -122,14 +133,14 @@ function ImageUpload({username}) {
                             <h4 className="dialog__header">CREATE POST</h4>
                             <CloseIcon onClick={handleClose} className="dialog__closeIcon"/>
                         </div>
-                        <hr/>
+                        <hr className="dialog__hr"/>
                         <div className="dialogUser__container">
                             <Avatar src={user?.photoURL}/>
                             <h4 className="dialog__user">{user?.displayName}</h4>
                         </div>
                         <div className="dialog__inputContainer">
                             <input onChange={handleChange} type="file" className="dialog__input" accept="image/*"/>
-                            <textarea value={caption} onChange={(e) => setCaption(e.target.value)} rows="4" placeholder={`How is the wedding going ${user?.displayName}...?`}></textarea>
+                            <textarea autoFocus value={caption} onChange={(e) => setCaption(e.target.value)} rows="4" placeholder={`How is the wedding going ${user?.displayName}...?`}></textarea>
                         </div>
                         <div className={`dialog__imagePreviewContainer ${!image && "dialog__input"}`}>
                             <img src={imageURL} className="dialog__imagePreview"/>
@@ -140,7 +151,11 @@ function ImageUpload({username}) {
                                 ADD A PHOTO...<AddAPhotoIcon />
                             </Button>                            
                         </div>
-                        <Button className="imageupload__button" onClick={handleUpload}>Upload Post</Button>
+                        {
+                            (caption || image) && 
+                            <Button className="imageupload__button" onClick={handleUpload}>Upload Post</Button>
+                        }
+                        
                     </div>
                 </Dialog>
             

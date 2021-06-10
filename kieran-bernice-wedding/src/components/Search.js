@@ -94,7 +94,7 @@ function Search({ user }) {
             <div className="posts__search" onClick={expandSearch}>
                 <SearchIcon  className="posts__searchIcon"/>
             </div>
-            <input type="text" className="searchBox" placeholder="Search guests..." onChange={updateSearchResults}/>
+            <input autoFocus type="text" className="searchBox" placeholder="Search guests..." onChange={updateSearchResults}/>
             <div className="posts__searchResults">
                 <ul id="searchResults">
                     {

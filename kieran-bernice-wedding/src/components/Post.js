@@ -6,7 +6,7 @@ import './Post.css';
 // import dayjs from 'dayjs'
 // import relativeTime from 'dayjs/plugin/relativeTime'
 
-function Post({ postId, user, username, caption, imageUrl, totalLikes, createdAt }) {
+function Post({ postId, user, username, caption, imageUrl, totalLikes, timestamp }) {
     const [comments, setComments] = useState([])
     // dayjs.extend(relativeTime)
 
@@ -22,7 +22,7 @@ function Post({ postId, user, username, caption, imageUrl, totalLikes, createdAt
 
             <img className="post__image" src={imageUrl} alt="" hidden={!imageUrl}/>
             
-            {/* <p>{createdAt}</p> */}
+            {/* <p>{timestamp}</p> */}
 
             <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
 

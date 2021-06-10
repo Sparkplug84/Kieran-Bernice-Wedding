@@ -110,6 +110,10 @@ progress[value]::-webkit-progress-value {
     margin-bottom: 15px;
 }
 
+.dialog__hr {
+    background-color: #00000075;
+}
+
 .dialog__user {
     margin-left: 10px;
 }
@@ -124,6 +128,7 @@ progress[value]::-webkit-progress-value {
     background-color: rgba(119, 119, 119, 0);
     border: none;
     border-radius: 10px;
+    resize: none;
 }
 
 .dialog__inputContainer textarea:focus {
@@ -131,8 +136,8 @@ progress[value]::-webkit-progress-value {
 }
 
 .dialog__imagePreview {
-    height: 100px;
-    width: auto;
+    width: 200px;
+    height: auto;
     border-radius: 8px;
 }
 

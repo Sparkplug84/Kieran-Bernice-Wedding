@@ -14,7 +14,7 @@ import posts from './pages/posts'
 
 function App() {
 
-    const [ user, setUser ] = useState()
+    const [ user, setUser ] = useState([])
 
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
@@ -37,7 +37,7 @@ function App() {
             <div className="container">
                 <Route exact path="/login" component={login}/>
                 <Route exact path="/signup" component={signup}/>
-                <Route user={user} exact path="/posts" component={posts}/>
+                <Route exact path="/posts" component={posts} user={user}/>
             </div>
         </>
     )

@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { db } from '../firebase';
 import '../components/Post.css';
+// import { useHistory } from 'react-router-dom';
+
 import Search from '../components/Search'
 import ProfileIcon from '../components/ProfileIcon'
 import Notification from '../components/Notification'
-
 import ImageUpload from '../components/ImageUpload'
 import Post from '../components/Post'
 
 function Posts() {
+    // const history = useHistory("");
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState(null)
+
+    // if (user === undefined) {
+    //     history.push("/login")
+    //     console.log(user)
+    // }
 
     useEffect(() => {
         // this is where the code runs

@@ -2,7 +2,9 @@ import React, { useState, useEffect, Component } from 'react'
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { db, auth } from '../firebase';
+import firebase from 'firebase'
 import './Post.css';
 // import dayjs from 'dayjs'
 // import relativeTime from 'dayjs/plugin/relativeTime'
@@ -15,6 +17,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     const [posterImage, setPosterImage] = useState('')
     const [postUser, setPostUser] = useState()
     const [ user, setUser ] = useState([])
+    const [commentActive, setCommentActive] = useState("false");
 
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
@@ -27,7 +30,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     }, [])
     // dayjs.extend(relativeTime)
 
-    // This is uded to get the user data of the post owner
+    // This is used to get the user data of the post owner
     useEffect(() => {
         if(postUserId) {
             db.collection('users').doc(postUserId).onSnapshot((snapshot) => {
@@ -84,6 +87,23 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
 
     }
 
+    const postComment = (event) => {
+        event.preventDefault()
+
+        db.collection('posts').doc(postId).collection('comments').add({
+            text: comment,
+            username: user.displayName,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        setComment('')
+        setCommentActive("true")
+    }
+
+    const revealComments = () => {
+        setCommentActive(!commentActive);
+  };
+
+
     return (
         <div className="post">
             <div className="post__header">
@@ -98,18 +118,53 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
 
             <img className="post__image" src={imageUrl} alt="" hidden={!imageUrl}/>
 
-            <p>{totalLikes}</p>
+            {!imageUrl ? (
+                <hr className="post__hr"/> 
+                ): (
+                    <span></span>
+                )
+                
+            }
+
+            <div className="post__options">
+                <div className="post__optionLike">
+                    <p className="post__likeText">Love it!</p>
+                    <FavoriteBorderIcon />
+                    <p className="post__likeTotal">12{totalLikes}</p>
+                </div>
+                <div className="post__optionComment" onClick={revealComments}>
+                    <p>{comments.length} {comments.length == 1 ? "Comment" : "Comments"}</p>
+                </div>
+            </div>
+
+            {user && (
+                <form className="post__commentbox">
+                    <input 
+                        type="text" 
+                        className="post__input" 
+                        placeholder={`Add a comment ${user.displayName} ...`}
+                        value={comment} 
+                        onChange={(e) => setComment(e.target.value)}/>
+                    <button
+                        className="post__button"
+                        disabled={!comment}
+                        type="submit"
+                        onClick={postComment}>ADD COMMENT
+                    </button>
+                </form>
+            )}
             
             {/* <p>{timestamp}</p> */}
 
-
-            <div className="post__comments">
-                
-                {comments.map((comment) => (
-                    <p>
-                        <strong>{comment.username}</strong> {comment.text}
-                    </p>
-                ))}
+            <div className={commentActive ? "hidden" : null}>
+                <div className="post__comments">
+                    
+                    {comments.map((comment) => (
+                        <p>
+                            <strong>{comment.username}</strong> {comment.text}
+                        </p>
+                    ))}
+                </div>
             </div>
         </div>
     )

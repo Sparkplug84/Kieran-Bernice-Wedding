@@ -11,6 +11,7 @@ import home from './pages/home'
 import login from './pages/login'
 import signup from './pages/signup'
 import posts from './pages/posts'
+import profile from './pages/profile'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
                 <Route exact path="/login" component={login}/>
                 <Route exact path="/signup" component={signup}/>
                 <Route exact path="/posts" component={posts} user={user}/>
+                <Route path="/:username/:uid" component={profile} />
             </div>
         </>
     )

@@ -117,7 +117,6 @@
 .post {
     max-width: 100%;
     background-color: #fff;
-    border: 1px solid lightgray;
     border-radius: 8px;
     margin: 0 0 20px;
     box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
@@ -158,7 +157,8 @@
 
 .post__commentbox {
     display: flex;
-    margin: 8px 0;
+    margin-top: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 .post__input {
@@ -167,15 +167,17 @@
     padding: 10px;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+    border-bottom-left-radius: 8px;
 }
 
 .post__button {
     background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
     color: #fff !important;
-    padding: 0 20px;
+    padding: 0 30px;
     word-wrap: unset;
     border: none;
     cursor: pointer;
+    border-bottom-right-radius: 8px;
 }
 
 .post__input:focus {
@@ -183,7 +185,7 @@
 }
 
 .post__comments {
-    padding: 20px;
+    padding: 5px 20px 20px;
     max-height: 200px;
     overflow: hidden;
     overflow-y: auto;
@@ -205,7 +207,7 @@
 .post__comments::before {
     content: 'Comments';
     font-weight: bold;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .post__options {
@@ -232,12 +234,18 @@
 }
 
 .post__optionComment {
+    display: flex;
+    align-items: center;
     cursor: pointer;
     padding: 15px 15px 10px;
+}
+.rotate {
+    transform: rotate(180deg);
 }
 
 .hidden {
     display: none;
+    height: 0;
 }
 
 .post__hr {

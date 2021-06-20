@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { db, auth } from '../firebase';
 import firebase from 'firebase'
 import './Post.css';
@@ -14,13 +15,14 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
 
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
-    const [show, setShow] = useState('like2')
-    const [show2, setShow2] = useState('textforlike')
+    // const [show, setShow] = useState('like2')
+    // const [show2, setShow2] = useState('textforlike')
     const [likeIcon, setLikeIcon] = useState('post__likeIcon')
     const [posterImage, setPosterImage] = useState('')
     const [postUser, setPostUser] = useState()
     const [ user, setUser ] = useState([])
     const [commentActive, setCommentActive] = useState(false);
+    const [commentsArrow, setCommentsArrow] = useState(false)
 
 
     useEffect(() => {
@@ -65,10 +67,8 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             .then(doc2 => {
                 if (doc2.data()) {
                     if (likeIcon == 'post__likeIcon') {
-                        console.log('no like')
                         setLikeIcon('post__likeIcon liked');
                     } else {
-                        console.log('yes like')
                         setLikeIcon('post__likeIcon');
                     }
                 }
@@ -85,12 +85,9 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
 
     const likeHandle = (event) => {
         event.preventDefault();
-        console.log(likeIcon)
         if (likeIcon == 'post__likeIcon') {
-            console.log('no like')
             setLikeIcon('post__likeIcon liked');
         } else {
-            console.log('yes like')
             setLikeIcon('post__likeIcon');
         }
 
@@ -99,9 +96,9 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             .get()
             .then(docc => {
                 const data = docc.data()
-                console.log(show)
+                // console.log(show)
                 if (likeIcon == 'post__likeIcon') {
-                    console.log(show)
+                    // console.log(show)
                     db.collection("posts")
                         .doc(postId)
                         .collection("likes")
@@ -141,10 +138,12 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
         })
         setComment('')
         setCommentActive(true)
+        setCommentsArrow(!commentsArrow)
     }
 
     const revealComments = () => {
-        setCommentActive(!commentActive);
+        setCommentActive(!commentActive)
+        setCommentsArrow(!commentsArrow)
   };
 
     return (
@@ -177,6 +176,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                 </div>
                 <div className="post__optionComment" onClick={revealComments}>
                     <p>{comments.length} {comments.length == 1 ? "Comment" : "Comments"}</p>
+                    <ExpandMoreIcon style={{ transition: "all 0.3s linear" }} className={commentsArrow ? "rotate" : null}/>
                 </div>
             </div>
 
@@ -199,7 +199,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             
             {/* <p>{timestamp}</p> */}
 
-            <div className={commentActive ? null : "hidden"}>
+            <div style={{ transition: "height 0.3s linear" }} className={commentActive ? null : "hidden"}>
                 <div className="post__comments">
                     
                     {comments.map((comment) => (

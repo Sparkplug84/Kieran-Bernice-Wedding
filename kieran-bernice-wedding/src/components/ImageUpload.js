@@ -17,6 +17,29 @@ function ImageUpload({username}) {
     const [imageURL, setImageURL] = useState('')
     const [totalLikes, setTotalLikes] = useState(0)
     const [open, setOpen] = useState(false)
+    const [dbuser, setdbuser] = useState(null)
+    
+    // const user = firebase.auth().currentUser;
+    
+    const getUser = async () => {
+        try {
+        const documentSnapshot = await db
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        const userData = documentSnapshot.data();
+            setdbuser(userData);
+            } catch {
+            //do whatever
+        }
+    };
+
+    // Get user on mount
+    useEffect(() => {
+        getUser();
+    }, []);
+    
     // const [scroll, setScroll] = useState('paper')
     // const myRef = useRef();
 
@@ -135,7 +158,7 @@ function ImageUpload({username}) {
                         </div>
                         <hr className="dialog__hr"/>
                         <div className="dialogUser__container">
-                            <Avatar src={user?.photoURL}/>
+                            <Avatar src={dbuser?.photoURL}/>
                             <h4 className="dialog__user">{user?.displayName}</h4>
                         </div>
                         <div className="dialog__inputContainer">
@@ -162,7 +185,7 @@ function ImageUpload({username}) {
 
             <div className="imageupload__container">
                 <div className="imageupload__post">
-                    <Avatar className="searchAvatar" src={user?.photoURL} />
+                    <Avatar className="searchAvatar" src={dbuser?.photoURL} />
                     <input type="text" value={caption} placeholder={`How is the wedding ${user?.displayName}...`} onChange={event => setCaption(event.target.value)} onClick={handleClickOpen}/>
                 </div>
                 <Button className="imageupload__button" onClick={handleClickOpen}>Add a Post</Button>

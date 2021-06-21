@@ -7,9 +7,9 @@ import firebase from 'firebase'
 import Avatar from '@material-ui/core/Avatar'
 import { useStateValue } from '../StateProvider'
 
-function Notification() {
+function Notification({user}) {
 
-    const user = firebase.auth().currentUser;
+    // const user = firebase.auth().currentUser;
     const [{ notifications }, dispatch] = useStateValue()
 
     // const [notificationsOpen, setNotificationsOpen] = useState(false)
@@ -76,14 +76,15 @@ function Notification() {
     useEffect(() => {
         db.collection('posts').onSnapshot((snapshot) => {
             snapshot.docs.map((doc) => {
-                if(user && doc.data().username === user.displayName) { // Checking for only the currently logged in user posts
+                if(user && doc.data().username == user.displayName) { // Checking for only the currently logged in user posts
                     db.collection('posts').doc(doc.id).collection('comments').onSnapshot((snapshot2) => {
                         snapshot2.docs.map(doc2 => {
+                            console.log(doc2.data())
                             if(user && doc2.data().username !== user.displayName) {
-                                dispatchEvent({
-                                    type: 'ADD_TO_NOTICIATIONS',
+                                dispatch({
+                                    type: 'ADD_TO_NOTIFICATIONS',
                                     item: {
-                                        notification: doc.data()
+                                        notification: doc.data(),
                                     }
                                 })
                             }
@@ -106,7 +107,7 @@ function Notification() {
             </div>
             <div className="notification__dropdown">
                 {
-                    notifications.length === 0 ? (
+                    notifications.length == 0 ? (
                         <div className="notification__noNotification">
                             {/* <img src={user && user.photoURL} className="notification__profileIcon" /> */}
                             <p className="notification__text">There are no notifications at the moment.</p>
@@ -117,7 +118,7 @@ function Notification() {
                 }
 
                 {
-                    notifications.map(({ notification }) => (
+                    notifications.map(({notification}) => (
                         <a href="#" className="notification__title">
                             <div className="notification__optionDrop">
                             <Avatar src="" />

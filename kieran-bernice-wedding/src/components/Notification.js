@@ -11,6 +11,27 @@ function Notification({user}) {
 
     // const user = firebase.auth().currentUser;
     const [{ notifications }, dispatch] = useStateValue()
+    const [dbuser, setdbuser] = useState(null)
+    // const user = firebase.auth().currentUser;
+    
+    const getUser = async () => {
+        try {
+        const documentSnapshot = await db
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        const userData = documentSnapshot.data();
+            setdbuser(userData);
+            } catch {
+            //do whatever
+        }
+    };
+
+    // Get user on mount
+    useEffect(() => {
+        getUser();
+    }, []);
 
     // const [notificationsOpen, setNotificationsOpen] = useState(false)
     const smallScreen = window.matchMedia( "(max-width: 500px)" );
@@ -121,10 +142,10 @@ function Notification({user}) {
                     notifications.map(({notification}) => (
                         <a href="#" className="notification__title">
                             <div className="notification__optionDrop">
-                            <Avatar src="" />
-                            <div className="notification__info">
-                                <h3>{notification.username} <span>commented to your post.</span></h3>
-                            </div>
+                                <Avatar src={notification?.photoURL} />
+                                <div className="notification__info">
+                                    <p>{notification.username} <span>commented to your post.</span></p>
+                                </div>
                             </div>
                         </a>
                     ))

@@ -270,6 +270,13 @@
     animation: scaleLike 0.5s;
 }
 
+.login__redirect {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
 @keyframes scaleLike {
     0% {
         transform: scale(1)

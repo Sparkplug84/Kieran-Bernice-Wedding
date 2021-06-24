@@ -19,8 +19,6 @@ function ImageUpload({username}) {
     const [open, setOpen] = useState(false)
     const [dbuser, setdbuser] = useState(null)
     
-    // const user = firebase.auth().currentUser;
-    
     const getUser = async () => {
         try {
         const documentSnapshot = await db
@@ -163,7 +161,7 @@ function ImageUpload({username}) {
                         </div>
                         <div className="dialog__inputContainer">
                             <input onChange={handleChange} type="file" className="dialog__input" accept="image/*"/>
-                            <textarea autoFocus value={caption} onChange={(e) => setCaption(e.target.value)} rows="4" placeholder={`How is the wedding going ${user?.displayName}...?`}></textarea>
+                            <textarea autoFocus value={caption} onChange={(e) => setCaption(e.target.value)} rows="4" placeholder={user ? `How is the wedding going ${user?.displayName}...?` : "Sign in to add a post"}></textarea>
                         </div>
                         <div className={`dialog__imagePreviewContainer ${!image && "dialog__input"}`}>
                             <img src={imageURL} className="dialog__imagePreview"/>

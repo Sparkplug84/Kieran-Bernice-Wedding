@@ -15,25 +15,13 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
 
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
-    // const [show, setShow] = useState('like2')
-    // const [show2, setShow2] = useState('textforlike')
     const [likeIcon, setLikeIcon] = useState('post__likeIcon')
     const [posterImage, setPosterImage] = useState('')
     const [postUser, setPostUser] = useState()
-    const [ user, setUser ] = useState([])
+    const [user, setUser] = useState([])
     const [commentActive, setCommentActive] = useState(false);
     const [commentsArrow, setCommentsArrow] = useState(false)
-
-
-    useEffect(() => {
-        auth.onAuthStateChanged((authUser) => {
-            if(authUser) {
-                setUser(authUser)
-            } else {
-                setUser(false)
-            }
-        })
-    }, [])
+    
     // dayjs.extend(relativeTime)
 
     // This is used to get the user data of the post owner
@@ -169,11 +157,20 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             }
 
             <div className="post__options">
-                <div className="post__optionLike" onClick={likeHandle}>
-                    <p className="post__likeText">Love it!</p>
-                    <i className={likeIcon}></i>
-                    <p className="post__likeTotal">{totalLikes}</p>
-                </div>
+                {
+                    user ? 
+                    <div className="post__optionLike" onClick={likeHandle}>
+                        <p className="post__likeText">Love it!</p>
+                        <i className={likeIcon}></i>
+                        <p className="post__likeTotal">{totalLikes}</p>
+                    </div> 
+                    :
+                    <div className="post__optionLike">
+                        <i className={likeIcon}></i>
+                        <p className="post__likeTotal">{totalLikes}</p>
+                    </div>
+                }
+                
                 <div className="post__optionComment" onClick={revealComments}>
                     <p>{comments.length} {comments.length == 1 ? "Comment" : "Comments"}</p>
                     <ExpandMoreIcon style={{ transition: "all 0.3s linear" }} className={commentsArrow ? "rotate" : null}/>
@@ -185,7 +182,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                     <input 
                         type="text" 
                         className="post__input" 
-                        placeholder={`Add a comment ${user.displayName} ...`}
+                        placeholder={`Add a comment ${user?.displayName} ...`}
                         value={comment} 
                         onChange={(e) => setComment(e.target.value)}/>
                     <button
@@ -207,7 +204,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                             <Avatar
                                 className="post__avatar"
                                 alt=""
-                                src={comment.photoURL}
+                                src={comment?.photoURL}
                             />
                             <p>
                                 <strong>{comment.username}</strong> {comment.text}

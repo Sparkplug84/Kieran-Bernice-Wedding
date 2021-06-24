@@ -75,3 +75,12 @@
     margin-left: 8px;
     margin-top: 8px;
 }
+
+.notification__optionDrop {
+    display: flex;
+    align-items: center;
+}
+
+.notification__info {
+    margin-left: 8px;
+}

@@ -11,14 +11,16 @@ import './Post.css';
 // import dayjs from 'dayjs'
 // import relativeTime from 'dayjs/plugin/relativeTime'
 
-function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, postUserId }) {
+function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, postUserId, user }) {
 
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
     const [likeIcon, setLikeIcon] = useState('post__likeIcon')
     const [posterImage, setPosterImage] = useState('')
+    const [commentUser, setCommentUser] = useState('')
+    const [commentImage, setCommentImage] = useState('')
     const [postUser, setPostUser] = useState()
-    const [user, setUser] = useState([])
+    // const [user, setUser] = useState([])
     const [commentActive, setCommentActive] = useState(false);
     const [commentsArrow, setCommentsArrow] = useState(false)
     
@@ -46,11 +48,12 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
         }
     }, [postId])
 
+    // This is used to retrieve the like status of each post for ech user
     useEffect(() => {
         db.collection("posts")
             .doc(postId)
             .collection("likes")
-            .doc(user.uid)
+            .doc(user?.uid)
             .get()
             .then(doc2 => {
                 if (doc2.data()) {
@@ -61,8 +64,9 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                     }
                 }
             })
-    }, [postId, user.uid]);
+    }, [postId, user?.uid]);
 
+    // Used to retrieve the user photo for each post
     useEffect(() => {
         if(postUserId) {
             db.collection('users').doc(postUserId).onSnapshot((snapshot) => {
@@ -70,6 +74,21 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             })
         }
     })
+    
+    // useEffect(() => {
+    //     if(postId) {
+    //         db.collection('posts').doc(postId).collection('comments').doc(comment?.id).onSnapshot((snapshot) => {
+    //             setCommentUser(snapshot.data()?.uid)
+    //             console.log(commentUser)
+    //         })
+    //     }
+    // }, [postId])
+
+    // useEffect(() => {
+    //     db.collection('users').doc(commentUser).onSnapshot((snapshot) => {
+    //         setCommentImage(snapshot.data()?.photoURL)
+    //     })
+    // })
 
     const likeHandle = (event) => {
         event.preventDefault();
@@ -118,11 +137,16 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     const postComment = (event) => {
         event.preventDefault()
 
+        // db.collection('users').doc(user.uid).onSnapshot((snapshot) => {
+        //     setCommentImage(snapshot.data()?.photoURL)
+        // })
+
         db.collection('posts').doc(postId).collection('comments').add({
             text: comment,
             username: user.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            photoURL: user?.photoURL
+            photoURL: user?.photoURL,
+            uid: user?.uid
         })
         setComment('')
         setCommentActive(true)
@@ -204,7 +228,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                             <Avatar
                                 className="post__avatar"
                                 alt=""
-                                src={comment?.photoURL}
+                                src={commentImage}
                             />
                             <p>
                                 <strong>{comment.username}</strong> {comment.text}

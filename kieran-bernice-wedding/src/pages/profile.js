@@ -42,7 +42,7 @@ function Profile() {
 
     document.title = `Kieran & Bernice Wedding | ${username} Profile`
 
-    const myAccount = username === user.displayName
+    const myAccount = username === user?.displayName
 
     const handleClose = () => {
         setOpen(false)

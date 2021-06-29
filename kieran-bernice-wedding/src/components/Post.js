@@ -156,7 +156,11 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     const revealComments = () => {
         setCommentActive(!commentActive)
         setCommentsArrow(!commentsArrow)
-  };
+    };
+
+    // async function getImageURL(uid) {
+    //     return (await db.collection("users").doc(uid).get()).data().photoURL
+    // }
 
     return (
         <div className="post">
@@ -228,7 +232,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                             <Avatar
                                 className="post__avatar"
                                 alt=""
-                                src={commentImage}
+                                src={comment.photoURL}
                             />
                             <p>
                                 <strong>{comment.username}</strong> {comment.text}

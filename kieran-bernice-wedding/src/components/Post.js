@@ -169,7 +169,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                     className="post__avatar" 
                     alt="" 
                     src={posterImage !== '' && posterImage} />
-                <Button className="post__headerLink" component={Link} to={`/users/${username}`}><strong><h3>{username}</h3></strong></Button>
+                <Button className="post__headerLink" component={Link} to={`/${username}/${user?.uid}`}><strong><h3>{username}</h3></strong></Button>
             </div>
 
             <p className="post__text">{caption}</p>

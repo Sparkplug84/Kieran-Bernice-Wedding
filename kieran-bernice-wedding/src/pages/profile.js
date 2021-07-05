@@ -1,11 +1,14 @@
 import React, {useState} from 'react'
 import {useParams} from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog'
+import Button from '@material-ui/core/Button'
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import firebase from 'firebase'
 import { storage, db } from '../firebase'
 import ImageUpload from '../components/ImageUpload'
 import Post from '../components/Post'
 import { useEffect } from 'react'
+import '../components/Profile.css'
 
 function Profile() {
     const {username, uid} = useParams()
@@ -22,7 +25,7 @@ function Profile() {
         db.collection('users').doc(uid).onSnapshot((doc) => { 
             setProfileUserData(doc.data())
         })
-    })
+    }, [])
 
     if(profileUserData !== undefined) {
         if(profileUserData?.displayName !== user?.displayName) {
@@ -37,7 +40,7 @@ function Profile() {
     }
 
     const uploadFileWithClick = () => {
-        document.getElementsByClassName('')[0].click()
+        document.getElementsByClassName('dialog__input')[0].click()
     }
 
     document.title = `Kieran & Bernice Wedding | ${username} Profile`
@@ -131,17 +134,17 @@ function Profile() {
             db.collection('users').doc(uid).update({
                 bio
             }).then(
-                alert("Please reload the page to aee your changes")
+                alert("Please reload the page to see your changes")
             )
         }
     }
 
     useEffect(() => {
         db.collection('users').doc(uid).onSnapshot(doc => {
-            if (doc.data().bio && doc.data().bio === ''){
+            if (doc.data()?.bio && doc.data().bio === ""){
                 setBioPresent(false)
             } else {
-                setBio(doc.data().bio)
+                setBio(doc.data()?.bio)
                 setBioPresent(true)
             }
         })
@@ -171,21 +174,33 @@ function Profile() {
             </Dialog>
 
             <div className="profile__header">
+                
                 <div className="profile__coverPhoto">
-                    <img className="profile__avatar" src={profileUserData?.photoURL} onClick={uploadFileWithClick}/>
-                    <input onChange={handleChange} type="file" accept="image/*" className="profile__inputImage"/>
+                    <img className="profile__avatar" src={profileUserData?.photoURL}/>
+                    <input onChange={handleChange} type="file" className="dialog__input" accept="image/*"/>
                 </div>
 
-                <h1 id="documentUsername">{username}</h1>
-                <p className="profile__bioText"></p>
-                <p onClick={addBio} className="profile__bioEdit">Add Bio</p>
-                <div className="profile__bioFields">
-                    <textarea className="profile__inputBio" value={bio} placeholder="Who are you?" onChange={bioSet} rows="3" />
-                    <div className="profile__InputButtons">
-                        <button onClick={collapseBio}>Cancel</button>
-                        <button onClick={bioUpdate}>Save</button>
+                <div className="profile__title">
+                    <div className="dialog__imageUpload" onClick={uploadFileWithClick}>
+                        <Button className="dialog__addProfilePhoto">
+                            ADD A PHOTO...<AddAPhotoIcon />
+                        </Button>                            
                     </div>
                 </div>
+
+                <div className="profile__body">
+                    <h1 id="documentUsername">{username}</h1>
+                    <p className="profile__bioText"></p>
+                    <p onClick={addBio} className="profile__bioEdit">Add Bio</p>
+                    <div className="profile__bioFields">
+                        <textarea className="profile__inputBio" value={bio} placeholder="Who are you?" onChange={bioSet} rows="3" />
+                        <div className="profile__InputButtons">
+                            <button onClick={collapseBio}>Cancel</button>
+                            <button onClick={bioUpdate}>Save</button>
+                        </div>
+                    </div>
+                </div>
+                
 
                 
             </div>

@@ -34,7 +34,7 @@ function ProfileIcon() {
         <div className="profileIcon__container">
             {
                 user && (
-                    <a className="profileIcon__link" href="/">
+                    <a className="profileIcon__link" href={`/${user?.displayName}/${user?.uid}`}>
                         <Avatar className="profileIcon__ image" src={user ? dbuser?.photoURL : ''} />
                         <p className="profileIcon__name">{user ? dbuser?.displayName : "Sign in to view profile"}</p>
                     </a>

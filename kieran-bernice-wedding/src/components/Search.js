@@ -101,7 +101,7 @@ function Search({ user }) {
                         user!==undefined && 
                         filteredUsers.map((user1) => (
                             <li>
-                                <a onClick={collapseSearch} href="/">
+                                <a onClick={collapseSearch} href={`/${user1?.displayName}/${user1?.uid}`}>
                                     <Avatar className="searchAvatar" src={user1.photoURL} />
                                     <h4 className="searchName">{user1.displayName}</h4>
                                 </a>

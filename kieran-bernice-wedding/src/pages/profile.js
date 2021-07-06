@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog'
 import Button from '@material-ui/core/Button'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import UserPosts from '../components/UserPosts';
 import firebase from 'firebase'
 import { storage, db } from '../firebase'
 import ImageUpload from '../components/ImageUpload'
@@ -10,7 +11,7 @@ import Post from '../components/Post'
 import { useEffect } from 'react'
 import '../components/Profile.css'
 
-function Profile() {
+function Profile({ user }) {
     const {username, uid} = useParams()
     const [progress, setProgress] = useState(0)
     const [imageURL, setImageURL] = useState('')
@@ -19,7 +20,7 @@ function Profile() {
     const [profileUserData, setProfileUserData] = useState()
     const [bio, setBio] = useState('')
     const [bioPresent, setBioPresent] = useState(false)
-    const user = firebase.auth().currentUser
+    const currentUser = firebase.auth().currentUser
 
     useEffect(() => {
         db.collection('users').doc(uid).onSnapshot((doc) => { 
@@ -90,7 +91,7 @@ function Profile() {
                     .child(user.uid)
                     .getDownloadURL()
                     .then(url => {
-                        user.updateProfile({
+                        currentUser.updateProfile({
                             photoURL: url
                         }).then(function () {
                             db.collection("users").doc(uid).update({
@@ -138,6 +139,15 @@ function Profile() {
             )
         }
     }
+
+    useEffect(() => {
+        db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+            setPosts(snapshot.docs.map(doc => ({
+                id: doc.id,
+                post: doc.data(),
+            })))
+        })
+    }, [])
 
     useEffect(() => {
         db.collection('users').doc(uid).onSnapshot(doc => {
@@ -188,18 +198,45 @@ function Profile() {
                     </div>
                 </div>
 
-                <div className="profile__body">
-                    <h1 id="documentUsername">{username}</h1>
-                    <p className="profile__bioText"></p>
-                    <p onClick={addBio} className="profile__bioEdit">Add Bio</p>
-                    <div className="profile__bioFields">
-                        <textarea className="profile__inputBio" value={bio} placeholder="Who are you?" onChange={bioSet} rows="3" />
-                        <div className="profile__InputButtons">
-                            <button onClick={collapseBio}>Cancel</button>
-                            <button onClick={bioUpdate}>Save</button>
+                <div className="profile__container">
+
+                    <div className="profile__body">
+                        <h1 id="documentUsername">{username}</h1>
+                        <p className="profile__bioText"></p>
+                        <p onClick={addBio} className="profile__bioEdit">Add Bio</p>
+                        <div className="profile__bioFields">
+                            <textarea className="profile__inputBio" value={bio} placeholder="Who are you?" onChange={bioSet} rows="3" />
+                            <div className="profile__InputButtons">
+                                <button onClick={collapseBio}>Cancel</button>
+                                <button onClick={bioUpdate}>Save</button>
+                            </div>
                         </div>
                     </div>
+
+                    <UserPosts username={username} />
+
+                    <div className="postAndWatch">
+                        {
+                            username === currentUser?.displayName ? (
+                                <ImageUpload username={username} />
+                            ) : (
+                                console.log()
+                            )
+                        }
+                        <br />
+                        {
+                            posts.map(({ id, post }) => (
+                                post.username !== username ? (
+                                    console.log()
+                                ) : (
+                                    <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl} totalLikes={post.totalLikes} timestamp={post.timestamp} postUserId={post.uid}/>
+                                )
+                            ))
+                        }
+                    </div>
+
                 </div>
+
                 
 
                 

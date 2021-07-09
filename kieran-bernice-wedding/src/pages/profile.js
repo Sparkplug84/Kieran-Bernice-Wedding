@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useHistory, Link} from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog'
 import Button from '@material-ui/core/Button'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 // import UserPosts from '../components/UserPosts';
 import firebase from 'firebase'
-import { storage, db } from '../firebase'
+import { storage, db, auth } from '../firebase'
 import ImageUpload from '../components/ImageUpload'
 import Post from '../components/Post'
 import { useEffect } from 'react'
@@ -21,6 +23,7 @@ function Profile({ user }) {
     const [bio, setBio] = useState('')
     const [bioPresent, setBioPresent] = useState(false)
     const currentUser = firebase.auth().currentUser
+    const history = useHistory("");
 
     useEffect(() => {
         db.collection('users').doc(uid).onSnapshot((doc) => { 
@@ -69,7 +72,7 @@ function Profile({ user }) {
         document.getElementsByClassName('progress')[0].style.display = 'block'
         event.preventDefault()
 
-        const uploadTask = storage.ref(`profileImages/${user.uid}`).put(imageURL)
+        const uploadTask = storage.ref(`profileImages/${user?.uid}`).put(imageURL)
         uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -91,7 +94,7 @@ function Profile({ user }) {
                 // complete function ...
                 storage
                     .ref("profileImages")
-                    .child(user.uid)
+                    .child(user?.uid)
                     .getDownloadURL()
                     .then(url => {
                         currentUser.updateProfile({
@@ -172,12 +175,20 @@ function Profile({ user }) {
         }
     }, [bioPresent])
 
+    const signout = () => {
+        if (currentUser) {
+            auth.signOut();
+            history.push("/login")
+        }
+    }
+
     return (
         <div className="profile">
             <Dialog open={open} onClose={handleClose} scroll='body' className="dialog2">
                 <div className="dialog-container">
                     <div className="profile__head">
                         <p>Are you sure you wat to change your profile picture?</p>
+                        <progress value={progress} max="100" style={{ display: 'none' }} className="progress" />
                     </div>
                     <div className="profile__dialogButtons">
                         <button onClick={handleUpload}>Yes</button>
@@ -185,10 +196,21 @@ function Profile({ user }) {
                     </div>
                 </div>
             </Dialog>
+            {
+                currentUser?.displayName === username ? 
+                    <div className="signout__container">
+                        <Button className="imageupload__button signout__button" onClick={signout}>Sign Out<ExitToAppIcon className="button__icon"/></Button>
+                    </div>
+                :
+                console.log()
+            }
+            
 
             <div className="profile__header">
-                
+
                 <div className="profile__coverPhoto">
+                   
+                    
                     <h1 id="documentUsername">{username}</h1>
                     <img className="profile__avatar" src={profileUserData?.photoURL}/>
                     <input onChange={handleChange} type="file" className="dialog__input" accept="image/*"/>
@@ -199,7 +221,7 @@ function Profile({ user }) {
                         currentUser?.displayName === username ?
                             <div className="dialog__imageUpload" onClick={uploadFileWithClick}>
                                 <Button className="dialog__addProfilePhoto">
-                                    ADD A PHOTO... <AddAPhotoIcon />
+                                    ADD A PHOTO... <AddAPhotoIcon className="button__icon"/>
                                 </Button>                            
                             </div>
                             :
@@ -207,7 +229,7 @@ function Profile({ user }) {
                     }
                 </div>
 
-                <div className="profile__container">
+                <div className={ username === currentUser?.displayName ? null : "profile__container" }>
 
                     <div className="profile__body">
                         
@@ -220,6 +242,7 @@ function Profile({ user }) {
                                 <button onClick={bioUpdate}>Save</button>
                             </div>
                         </div>
+                        
                     </div>
 
                     {/* <UserPosts username={username} /> */}
@@ -233,14 +256,18 @@ function Profile({ user }) {
                             )
                         }
                         <br />
+                        <div className="profile__postsHeader">
+                            <h4 className="profile__posts">{username} - Recent Posts</h4>
+                            <Button className="imageupload__button return__button" component={Link} to={'/posts'}>All Posts <ArrowForwardIosIcon className="button__icon arrow__icon"/></Button>
+                        </div>
                         {
                             posts.map(({ id, post }) => (
                                 post.username !== username ? (
-                                    console.log()
+                                console.log()
                                 ) : (
                                     <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl} totalLikes={post.totalLikes} timestamp={post.timestamp} postUserId={post.uid}/>
-                                )
-                            ))
+                                    )
+                                ))
                         }
                     </div>
 

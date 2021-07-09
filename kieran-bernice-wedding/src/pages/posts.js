@@ -27,11 +27,11 @@ function Posts() {
         })
     }, []);
 
-    const signout = () => {
-        if (user) {
-            auth.signOut();
-        }
-    }
+    // const signout = () => {
+    //     if (user) {
+    //         auth.signOut();
+    //     }
+    // }
 
     let recentPosts = posts ? (
         posts.map(({id, post}) => (
@@ -46,7 +46,7 @@ function Posts() {
             { 
                 user ?
                 <Fragment>
-                    <Button className="imageupload__button" onClick={signout}>Sign Out</Button>
+                    {/* <Button className="imageupload__button" onClick={signout}>Sign Out</Button> */}
                     <div className="posts__toolbar">
                         <Search user={user}/>
                         <ProfileIcon user={user}/>

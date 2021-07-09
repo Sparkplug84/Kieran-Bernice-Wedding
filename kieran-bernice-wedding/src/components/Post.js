@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import { db, auth } from '../firebase';
 import firebase from 'firebase'
 import './Post.css';
@@ -145,7 +146,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             text: comment,
             username: user.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            photoURL: user?.photoURL,
+            photoURL: user.photoURL,
             uid: user?.uid
         })
         setComment('')
@@ -161,6 +162,8 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     // async function getImageURL(uid) {
     //     return (await db.collection("users").doc(uid).get()).data().photoURL
     // }
+
+    console.log({user})
 
     return (
         <div className="post">
@@ -217,7 +220,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                         className="post__button"
                         disabled={!comment}
                         type="submit"
-                        onClick={postComment}>ADD COMMENT
+                        onClick={postComment}>ADD COMMENT  <QuestionAnswerIcon className="button__icon"/>
                     </button>
                 </form>
             )}

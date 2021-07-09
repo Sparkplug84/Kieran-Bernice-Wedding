@@ -6,6 +6,7 @@ import './ImageUpload.css'
 import Dialog from '@material-ui/core/Dialog'
 import CloseIcon from '@material-ui/icons/Close'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import Avatar from '@material-ui/core/Avatar';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
@@ -186,7 +187,7 @@ function ImageUpload({username}) {
                     <Avatar className="searchAvatar" src={dbuser?.photoURL} />
                     <input type="text" value={caption} placeholder={`How is the wedding ${user?.displayName}...`} onChange={event => setCaption(event.target.value)} onClick={handleClickOpen}/>
                 </div>
-                <Button className="imageupload__button" onClick={handleClickOpen}>Add a Post</Button>
+                <Button className="imageupload__button" onClick={handleClickOpen}>Add a Post <PostAddIcon className="button__icon"/></Button>
                 {/* <progress className="imageupload__progress" value={progress} max="100" hidden={!progress}></progress> */}
                 {/* <input type="file" onChange={handleChange}/> */}
             </div>

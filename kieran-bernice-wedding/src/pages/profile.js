@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog'
 import Button from '@material-ui/core/Button'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import UserPosts from '../components/UserPosts';
+// import UserPosts from '../components/UserPosts';
 import firebase from 'firebase'
 import { storage, db } from '../firebase'
 import ImageUpload from '../components/ImageUpload'
@@ -27,6 +27,9 @@ function Profile({ user }) {
             setProfileUserData(doc.data())
         })
     }, [])
+    console.log(profileUserData)
+    console.log(username)
+    console.log(uid)
 
     if(profileUserData !== undefined) {
         if(profileUserData?.displayName !== user?.displayName) {
@@ -186,22 +189,28 @@ function Profile({ user }) {
             <div className="profile__header">
                 
                 <div className="profile__coverPhoto">
+                    <h1 id="documentUsername">{username}</h1>
                     <img className="profile__avatar" src={profileUserData?.photoURL}/>
                     <input onChange={handleChange} type="file" className="dialog__input" accept="image/*"/>
                 </div>
 
                 <div className="profile__title">
-                    <div className="dialog__imageUpload" onClick={uploadFileWithClick}>
-                        <Button className="dialog__addProfilePhoto">
-                            ADD A PHOTO...<AddAPhotoIcon />
-                        </Button>                            
-                    </div>
+                    {
+                        currentUser?.displayName === username ?
+                            <div className="dialog__imageUpload" onClick={uploadFileWithClick}>
+                                <Button className="dialog__addProfilePhoto">
+                                    ADD A PHOTO... <AddAPhotoIcon />
+                                </Button>                            
+                            </div>
+                            :
+                            console.log()
+                    }
                 </div>
 
                 <div className="profile__container">
 
                     <div className="profile__body">
-                        <h1 id="documentUsername">{username}</h1>
+                        
                         <p className="profile__bioText"></p>
                         <p onClick={addBio} className="profile__bioEdit">Add Bio</p>
                         <div className="profile__bioFields">
@@ -213,7 +222,7 @@ function Profile({ user }) {
                         </div>
                     </div>
 
-                    <UserPosts username={username} />
+                    {/* <UserPosts username={username} /> */}
 
                     <div className="postAndWatch">
                         {

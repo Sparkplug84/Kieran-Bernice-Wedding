@@ -1,0 +1,31 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination__list {
+    display: flex;
+}
+
+.pagination__number {
+    border: 1px solid #8500ff;
+    padding: 5px 8px;
+    margin: 0 3px
+}
+
+.pagination__link {
+    text-decoration: none;
+    color: #8500ff;
+    width: 100%;
+    height: 100%;
+}
+
+.pagination__numberBackground, .pagination__number:hover {
+    background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.pagination__linkText, .pagination__link:hover {
+    color: #fff;
+}

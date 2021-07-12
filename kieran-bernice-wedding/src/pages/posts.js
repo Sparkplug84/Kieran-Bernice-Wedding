@@ -11,9 +11,13 @@ import ProfileIcon from '../components/ProfileIcon'
 import Notification from '../components/Notification'
 import ImageUpload from '../components/ImageUpload'
 import Post from '../components/Post'
+import Pagination from '../components/Pagination'
 
 function Posts() {
     const [posts, setPosts] = useState([])
+    // const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage] = useState(2)
     const user = firebase.auth().currentUser
 
 
@@ -27,26 +31,29 @@ function Posts() {
         })
     }, []);
 
-    // const signout = () => {
-    //     if (user) {
-    //         auth.signOut();
-    //     }
-    // }
-
-    let recentPosts = posts ? (
-        posts.map(({id, post}) => (
-            <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl} totalLikes={post.totalLikes} timestamp={post.timestamp} postUserId={post.uid}/>
-        ))
+    
+    // Get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+    
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber)
+    console.log(currentPage)
+    
+    let recentPosts = currentPosts ? (
+    currentPosts.map(({id, post}) => (
+        <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl} totalLikes={post.totalLikes} timestamp={post.timestamp} postUserId={post.uid}/>
+    ))
     ) : (
         <p>Loading...</p> 
     )
-
+    
     return (
         <div className="posts">
             { 
                 user ?
                 <Fragment>
-                    {/* <Button className="imageupload__button" onClick={signout}>Sign Out</Button> */}
                     <div className="posts__toolbar">
                         <Search user={user}/>
                         <ProfileIcon user={user}/>
@@ -64,6 +71,7 @@ function Posts() {
                 </Fragment>
             }
             {recentPosts}
+            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate}/>
         </div>
     )
 }

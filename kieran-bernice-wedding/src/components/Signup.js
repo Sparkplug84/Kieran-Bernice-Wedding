@@ -37,7 +37,7 @@ function Signup() {
         <div className="signup__container">
             <h1>Sign Up</h1>
             <form>
-                <input required name="name" type="text" placeholder="Name..." onChange={(e) => setUsername(e.target.value)}/>
+                <input required name="name" type="text" placeholder="Full Name..." onChange={(e) => setUsername(e.target.value)}/>
                 <input required name="email" type="email" placeholder="Email Address..."  onChange={(e) => setEmail(e.target.value)}/>
                 <input required name="password" type="password" placeholder="Password..."  onChange={(e) => setPassword(e.target.value)}/>
                 {/* <input required name="confirm_password" type="password" placeholder="Confirm Password..."/> */}

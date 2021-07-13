@@ -17,7 +17,7 @@ function Posts() {
     const [posts, setPosts] = useState([])
     // const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const [postsPerPage] = useState(2)
+    const [postsPerPage] = useState(5)
     const user = firebase.auth().currentUser
 
 
@@ -38,8 +38,10 @@ function Posts() {
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
     
     // Change page
-    const paginate = pageNumber => setCurrentPage(pageNumber)
-    console.log(currentPage)
+    const paginate = pageNumber => {
+        setCurrentPage(pageNumber)
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
     
     let recentPosts = currentPosts ? (
     currentPosts.map(({id, post}) => (
@@ -71,7 +73,7 @@ function Posts() {
                 </Fragment>
             }
             {recentPosts}
-            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate}/>
+            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} currentPage={currentPage}/>
         </div>
     )
 }

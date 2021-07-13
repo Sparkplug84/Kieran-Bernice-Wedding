@@ -163,8 +163,6 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     //     return (await db.collection("users").doc(uid).get()).data().photoURL
     // }
 
-    console.log({user})
-
     return (
         <div className="post">
             <div className="post__header">

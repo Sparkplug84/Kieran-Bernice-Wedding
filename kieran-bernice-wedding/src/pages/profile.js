@@ -16,6 +16,7 @@ import '../components/Profile.css'
 function Profile({ user }) {
     const {username, uid} = useParams()
     const [progress, setProgress] = useState(0)
+    const [image, setImage] = useState('')
     const [imageURL, setImageURL] = useState('')
     const [open, setOpen] = useState(false)
     const [posts, setPosts] = useState([])
@@ -43,8 +44,15 @@ function Profile({ user }) {
     }
 
     const handleChange = (e) => {
-        setImageURL(e.target.files[0])
+        if (e.target.files[0]) {
+            setImage(e.target.files[0])
+        }
+        setImageURL(URL.createObjectURL(e.target.files[0]))
     }
+
+    // const handleChange = (e) => {
+    //     setImageURL(e.target.files[0])
+    // }
 
     const uploadFileWithClick = () => {
         document.getElementsByClassName('dialog__input')[0].click()
@@ -56,6 +64,7 @@ function Profile({ user }) {
 
     const handleClose = () => {
         setOpen(false)
+        setImage('')
         setImageURL('')
     }
 
@@ -72,7 +81,7 @@ function Profile({ user }) {
         document.getElementsByClassName('progress')[0].style.display = 'block'
         event.preventDefault()
 
-        const uploadTask = storage.ref(`profileImages/${user?.uid}`).put(imageURL)
+        const uploadTask = storage.ref(`profileImages/${currentUser.uid}`).put(image)
         uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -94,7 +103,7 @@ function Profile({ user }) {
                 // complete function ...
                 storage
                     .ref("profileImages")
-                    .child(user?.uid)
+                    .child(currentUser.uid)
                     .getDownloadURL()
                     .then(url => {
                         currentUser.updateProfile({
@@ -106,7 +115,8 @@ function Profile({ user }) {
                                 handleClose()
                                 setProgress(0)
 
-                                window.location.href = `/${user.displayName}/${user.uid}`
+                                window.location.href = `/${user?.displayName}/${user?.uid}`
+                                window.location.reload();
                             })
                             // setCaption('')
                             // setImage(null)

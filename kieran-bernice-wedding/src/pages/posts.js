@@ -48,7 +48,7 @@ function Posts() {
         <Post key={id} postId={id} username={post.username} user={user} caption={post.caption} imageUrl={post.imageUrl} totalLikes={post.totalLikes} timestamp={post.timestamp} postUserId={post.uid}/>
     ))
     ) : (
-        <p>Loading...</p> 
+        <p>Loading...</p>
     )
     
     return (

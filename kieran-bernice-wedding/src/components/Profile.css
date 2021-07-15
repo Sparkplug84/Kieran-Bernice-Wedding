@@ -70,9 +70,13 @@
 
 .profile__postsHeader {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
     margin-bottom: 10px;
+}
+
+.profile__allPosts {
+    max-width: 40% !important;
 }
 
 @media only screen and (max-width: 600px) {

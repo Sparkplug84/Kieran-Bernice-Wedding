@@ -57,7 +57,8 @@ const useStyles = makeStyles(() => ({
         logoContainer: {
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            cursor: "pointer"
         },
         drawerButtons: {
             textDecoration: "none",
@@ -89,14 +90,18 @@ function Navbar({user, selected}) {
         window.addEventListener("resize", () => setResponsiveness());
     }, []);
 
+    const history = useHistory("");
+    const goHome = () => {
+            history.push("/")
+    }
     
 
     const displayDesktop = () => {
         return (
         <Toolbar className={toolbar}>
-            <div className={logoContainer}>
+            <div className={logoContainer} onClick={goHome}>
                 <img className="app__headerImage" src="https://images.vexels.com/media/users/3/130012/isolated/preview/77f5ebe454a2dfb81433f49a93c153cf-dancing-wedding-couple-by-vexels.png" alt=""/>
-                <h1 className="app__headerlogo">Kieran &amp; Bernice</h1>
+                <h1 className="app__headerlogo">Bernice &amp; Kieran</h1>
             </div>
             <div>{getMenuButtons()}</div>
         </Toolbar>
@@ -108,12 +113,13 @@ function Navbar({user, selected}) {
         setState((prevState) => ({ ...prevState, drawerOpen: true }));
         const handleDrawerClose = () =>
         setState((prevState) => ({ ...prevState, drawerOpen: false }));
+    
 
         return (
         <Toolbar className={toolbar}>
-            <div className={logoContainer}>
+            <div className={logoContainer} onClick={goHome}>
                 <img className="app__headerImage" src="https://images.vexels.com/media/users/3/130012/isolated/preview/77f5ebe454a2dfb81433f49a93c153cf-dancing-wedding-couple-by-vexels.png" alt=""/>
-                <h1 className="app__headerlogo">Kieran &amp; Bernice</h1>
+                <h1 className="app__headerlogo">Bernice &amp; Kieran</h1>
             </div>
             <IconButton
             {...{

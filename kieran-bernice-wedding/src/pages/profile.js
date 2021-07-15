@@ -4,8 +4,7 @@ import Dialog from '@material-ui/core/Dialog'
 import Button from '@material-ui/core/Button'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-// import UserPosts from '../components/UserPosts';
+import ReplyIcon from '@material-ui/icons/Reply';
 import firebase from 'firebase'
 import { storage, db, auth } from '../firebase'
 import ImageUpload from '../components/ImageUpload'
@@ -31,9 +30,6 @@ function Profile({ user }) {
             setProfileUserData(doc.data())
         })
     }, [])
-    console.log(profileUserData)
-    console.log(username)
-    console.log(uid)
 
     if(profileUserData !== undefined) {
         if(profileUserData?.displayName !== user?.displayName) {
@@ -49,10 +45,6 @@ function Profile({ user }) {
         }
         setImageURL(URL.createObjectURL(e.target.files[0]))
     }
-
-    // const handleChange = (e) => {
-    //     setImageURL(e.target.files[0])
-    // }
 
     const uploadFileWithClick = () => {
         document.getElementsByClassName('dialog__input')[0].click()
@@ -118,9 +110,6 @@ function Profile({ user }) {
                                 window.location.href = `/${user?.displayName}/${user?.uid}`
                                 window.location.reload();
                             })
-                            // setCaption('')
-                            // setImage(null)
-                            // setProgress(0)
                         })
                 })
             }
@@ -209,7 +198,7 @@ function Profile({ user }) {
             {
                 currentUser?.displayName === username ? 
                     <div className="signout__container">
-                        <Button className="imageupload__button signout__button" onClick={signout}>Sign Out<ExitToAppIcon className="button__icon"/></Button>
+                        <Button className="login__signup" onClick={signout}>Sign Out <ExitToAppIcon className="button__icon"/></Button>
                     </div>
                 :
                 console.log()
@@ -255,8 +244,6 @@ function Profile({ user }) {
                         
                     </div>
 
-                    {/* <UserPosts username={username} /> */}
-
                     <div className="postAndWatch">
                         {
                             username === currentUser?.displayName ? (
@@ -268,7 +255,9 @@ function Profile({ user }) {
                         <br />
                         <div className="profile__postsHeader">
                             <h4 className="profile__posts">{username} - Recent Posts</h4>
-                            <Button className="imageupload__button return__button" component={Link} to={'/posts'}>All Posts <ArrowForwardIosIcon className="button__icon arrow__icon"/></Button>
+                            <Button className="dialog__addPhoto profile__allPosts" component={Link} to={'/posts'}>
+                                All Posts<ReplyIcon className="button__icon"/>
+                            </Button> 
                         </div>
                         {
                             posts.map(({ id, post }) => (

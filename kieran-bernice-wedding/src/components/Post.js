@@ -1,12 +1,10 @@
-import React, { useState, useEffect, Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import { db, auth } from '../firebase';
+import { db } from '../firebase';
 import firebase from 'firebase'
 import './Post.css';
 // import dayjs from 'dayjs'
@@ -18,10 +16,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     const [comment, setComment] = useState('')
     const [likeIcon, setLikeIcon] = useState('post__likeIcon')
     const [posterImage, setPosterImage] = useState('')
-    const [commentUser, setCommentUser] = useState('')
-    const [commentImage, setCommentImage] = useState('')
     const [postUser, setPostUser] = useState()
-    // const [user, setUser] = useState([])
     const [commentActive, setCommentActive] = useState(false);
     const [commentsArrow, setCommentsArrow] = useState(false)
     
@@ -75,21 +70,6 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             })
         }
     })
-    
-    // useEffect(() => {
-    //     if(postId) {
-    //         db.collection('posts').doc(postId).collection('comments').doc(comment?.id).onSnapshot((snapshot) => {
-    //             setCommentUser(snapshot.data()?.uid)
-    //             console.log(commentUser)
-    //         })
-    //     }
-    // }, [postId])
-
-    // useEffect(() => {
-    //     db.collection('users').doc(commentUser).onSnapshot((snapshot) => {
-    //         setCommentImage(snapshot.data()?.photoURL)
-    //     })
-    // })
 
     const likeHandle = (event) => {
         event.preventDefault();

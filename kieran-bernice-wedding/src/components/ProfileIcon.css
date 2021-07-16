@@ -21,13 +21,23 @@
     width: 40px;
 }
 
+.profileIcon__details {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .profileIcon__name {
     margin-left: 10px;
 }
 
+.user__icon {
+    margin-left: 5px;
+}
+
 @media (max-width: 500px) {
     .profileIcon__container {
-        /* width: 100% !important; */
         flex-grow: 1;
     }
 }

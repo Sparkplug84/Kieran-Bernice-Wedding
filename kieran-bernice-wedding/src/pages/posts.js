@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { db, auth } from '../firebase';
+import { db } from '../firebase';
 import { Button } from '@material-ui/core'
 import '../components/Post.css';
 import '../components/Signup.css';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import firebase from 'firebase'
 
 import Search from '../components/Search'

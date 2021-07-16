@@ -8,7 +8,6 @@ import CloseIcon from '@material-ui/icons/Close'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Avatar from '@material-ui/core/Avatar';
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 function ImageUpload({username}) {
     const user = firebase.auth().currentUser
@@ -16,7 +15,7 @@ function ImageUpload({username}) {
     const [progress, setProgress] = useState(0)
     const [image, setImage] = useState('')
     const [imageURL, setImageURL] = useState('')
-    const [totalLikes, setTotalLikes] = useState(0)
+    const [totalLikes] = useState(0)
     const [open, setOpen] = useState(false)
     const [dbuser, setdbuser] = useState(null)
     
@@ -165,7 +164,7 @@ function ImageUpload({username}) {
                             <textarea autoFocus value={caption} onChange={(e) => setCaption(e.target.value)} rows="4" placeholder={user ? `How is the wedding going ${user?.displayName}...?` : "Sign in to add a post"}></textarea>
                         </div>
                         <div className={`dialog__imagePreviewContainer ${!image && "dialog__input"}`}>
-                            <img src={imageURL} className="dialog__imagePreview"/>
+                            <img src={imageURL} className="dialog__imagePreview" alt="preview"/>
                         </div>
                         <progress className="imageupload__progress" value={progress} max="100" hidden={!progress}></progress>
                         <div className="dialog__imageUpload" onClick={uploadFileWithClick}>

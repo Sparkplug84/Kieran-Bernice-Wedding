@@ -1,0 +1,45 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    min-height: 100px;
+    width: 100%;
+    background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
+}
+
+.main__links, .sub__links, .info {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.main__links {
+    text-align: left;
+}
+
+.sub__links {
+}
+
+.info {
+    text-align: center;
+}
+
+.info__email a {
+    margin-top: 3px;
+    display: flex;
+}
+
+.footer__links {
+    color: #fff !important;
+}
+
+.footer__icon {
+    transform: scale(0.8);
+}
+
+@media(min-width: 800px) {
+    .footer {
+        justify-content: space-around;
+    }
+}

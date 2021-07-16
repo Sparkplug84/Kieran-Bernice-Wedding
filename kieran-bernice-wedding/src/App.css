@@ -14,10 +14,14 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px;
+    flex: 1;
 }
 
 .app {
     background-color: #fafafa;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .app__posts {

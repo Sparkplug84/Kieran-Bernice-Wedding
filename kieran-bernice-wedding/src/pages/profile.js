@@ -211,7 +211,7 @@ function Profile({ user }) {
                    
                     
                     <h1 id="documentUsername">{username}</h1>
-                    <img className="profile__avatar" src={profileUserData?.photoURL}/>
+                    <img className="profile__avatar" src={profileUserData?.photoURL} alt="user"/>
                     <input onChange={handleChange} type="file" className="dialog__input" accept="image/*"/>
                 </div>
 

@@ -5,6 +5,7 @@ import './App.css';
 
 // Components
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 // Pages
 import home from './pages/home'
@@ -41,11 +42,12 @@ function App() {
                 <Route exact path="/posts" component={posts} user={user}/>
                 <Route path="/:username/:uid" component={profile} />
             </div>
+            <Footer />
         </>
     )
 
     return (
-        <div className="App">
+        <div className="app">
             <Router>
                     <Switch>
                         <Route exact path="/" component={home}/>

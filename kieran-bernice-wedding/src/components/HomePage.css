@@ -1,0 +1,67 @@
+.home__background {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #C33764;  /* fallback colour. Make sure this is just one solid colour. */
+    background: -webkit-linear-gradient(rgba(255, 0, 0, 0.7), rgba(133, 0, 255, 0.7)), url("https://live.staticflickr.com/65535/51313854308_c602ff4d8b_o.jpg") no-repeat center center fixed;
+    background: linear-gradient(rgba(255, 0, 0, 0.7), rgba(133, 0, 255, 0.7)), url("https://live.staticflickr.com/65535/51313854308_c602ff4d8b_o.jpg") no-repeat center center fixed; /* The least supported option. */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Parisienne', cursive !important;
+    color: #fff;
+    font-weight: 500;
+    font-size: 40px;
+    text-align: center;
+}
+
+.Typewriter {
+    padding: 50px;
+}
+
+.Typewriter__wrapper {
+    font-family: 'Parisienne', cursive !important;
+}
+
+.home__enterButton {
+    background-color: #fff !important;
+    padding: 10px 60px !important;
+    animation: fadeInDown;
+    animation-duration: 1s;
+}
+
+@keyframes fadeInDown {
+    0% {
+       opacity: 0;
+       transform: translateY(-20px);
+    }
+    100% {
+       opacity: 1;
+       transform: translateY(0);
+    }
+ } 
+
+@media (min-width: 600px) {
+    .home__background {
+        font-size: 70px !important;
+    }
+    .home__enterButton {
+        padding: 12px 70px !important;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1629px) {
+    .Typewriter {
+        padding: 50px 250px;
+    }
+}
+
+@media (min-width: 1630px) {
+    .Typewriter {
+        padding: 75px 500px;
+    }
+}

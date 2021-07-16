@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import { db, auth } from '../firebase';
+import { db } from '../firebase';
 import firebase from 'firebase'
 import Avatar from '@material-ui/core/Avatar'
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './ProfileIcon.css'
 
 
@@ -36,9 +36,11 @@ function ProfileIcon() {
             {
                 user && (
                     <a className="profileIcon__link" href={`/${user?.displayName}/${user?.uid}`}>
-                        <Avatar className="profileIcon__ image" src={user ? dbuser?.photoURL : ''} />
-                        <p className="profileIcon__name">{user ? dbuser?.displayName : "Sign in to view profile"}: <strong>Profile</strong></p>
-                        <ArrowForwardIosIcon className="arrow__icon"/>
+                        <Avatar className="profileIcon__image" src={user ? dbuser?.photoURL : ''} />
+                        <div className="profileIcon__details">
+                            <p className="profileIcon__name">{user ? dbuser?.displayName : "Sign in to view profile"}</p>
+                            <AccountCircleIcon className="user__icon"/>
+                        </div>
                     </a>
 
                 )

@@ -14,6 +14,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
 
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
+    const [commentPhoto, setCommentPhoto] = useState('')
     const [likeIcon, setLikeIcon] = useState('post__likeIcon')
     const [posterImage, setPosterImage] = useState('')
     const [postUser, setPostUser] = useState()
@@ -44,7 +45,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
         }
     }, [postId])
 
-    // This is used to retrieve the like status of each post for ech user
+    // This is used to retrieve the like status of each post for each user
     useEffect(() => {
         db.collection("posts")
             .doc(postId)
@@ -143,6 +144,16 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     //     return (await db.collection("users").doc(uid).get()).data().photoURL
     // }
 
+    // useEffect(() => {
+    //     if(comment?.uid) {
+    //         db.collection('users').doc(comment?.uid).onSnapshot((snapshot) => {
+    //             setCommentPhoto(snapshot.data().photoURL)
+    //         })
+    //     }
+    // },[comment?.uid])
+
+    // console.log(comment.uid)
+
     return (
         <div className="post">
             <div className="post__header">
@@ -203,7 +214,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                 </form>
             )}
             
-            {/* <p>{timestamp}</p> */}
+            <p>{new Date(timestamp.seconds * 1000).toTimeString()}</p>
 
             <div style={{ transition: "height 0.3s linear" }} className={commentActive ? null : "hidden"}>
                 <div className="post__comments">

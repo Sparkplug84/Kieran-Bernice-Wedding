@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ReplyIcon from '@material-ui/icons/Reply';
+import CloseIcon from '@material-ui/icons/Close'
 import firebase from 'firebase'
 import { storage, db, auth } from '../firebase'
 import ImageUpload from '../components/ImageUpload'
@@ -184,28 +185,42 @@ function Profile({ user }) {
     return (
         <div className="profile">
             <Dialog open={open} onClose={handleClose} scroll='body' className="dialog2">
-                <div className="dialog-container">
-                    <div className="profile__head">
-                        <p>Are you sure you wat to change your profile picture?</p>
+                <div className="dialog__container">
+
+                    <div className="dialogHeader__container">
+                        <h4 className="dialog__header">ADD OR CHANGE PROFILE PHOTO</h4>
+                        <CloseIcon onClick={handleClose} className="dialog__closeIcon"/>
+                    </div>
+
+                    <hr className="dialog__hr"/>
+
+                    <div className={`dialog__imagePreviewContainer ${!image && "dialog__input"}`}>
+                        <img src={imageURL} className="dialog__imagePreview" alt="preview"/>
+                    </div>
+
+                    <div className="profileDialog__body">
+                        <p>Are you sure you want to change your profile picture?</p>
                         <progress value={progress} max="100" style={{ display: 'none' }} className="progress" />
                     </div>
+
                     <div className="profile__dialogButtons">
-                        <button onClick={handleUpload}>Yes</button>
-                        <button onClick={handleClose}>No</button>
+                        <Button className="dialog__addProfilePhoto" onClick={handleUpload}>Yes <AddAPhotoIcon className="button__icon"/></Button>
+                        <Button className="dialog__cancelButton" onClick={handleClose}>Cancel <CloseIcon className="button__icon"/></Button>
                     </div>
                 </div>
             </Dialog>
-            {
-                currentUser?.displayName === username ? 
-                    <div className="signout__container">
-                        <Button className="login__signup" onClick={signout}>Sign Out <ExitToAppIcon className="button__icon"/></Button>
-                    </div>
-                :
-                console.log()
-            }
+            
             
 
             <div className="profile__header">
+                {
+                    currentUser?.displayName === username ? 
+                        <div className="signout__container">
+                            <Button className="login__signup" onClick={signout}>Sign Out <ExitToAppIcon className="button__icon"/></Button>
+                        </div>
+                    :
+                    console.log()
+                }
 
                 <div className="profile__coverPhoto">
                    

@@ -31,12 +31,42 @@
     justify-content: center;
 }
 
+.dialog__container {
+    padding: 10px;
+}
+
 .dialog__input {
     display: none;
 }
 
 .dialog__imageUpload {
     margin-top: 180px;
+}
+
+.profile__dialogButtons {
+    display: flex;
+    align-items: center;
+}
+
+.dialog__cancelButton {
+    background-color: #fff !important;
+    margin-left: 10px !important;
+    padding: 5px 40px !important;
+    border: 1px solid #000 !important;
+}
+
+.dialog__cancelButton:hover {
+    background-image: linear-gradient(to bottom right, #8500ff, #ff0000);
+    color: #fff;
+    border: 1px solid transparent !important;
+}
+
+.profileDialog__body {
+    margin: 10px 0;
+}
+
+.dialog__hr {
+    margin-bottom: 10px;
 }
 
 .dialog__addProfilePhoto {
@@ -48,12 +78,15 @@
 
 .dialog__addProfilePhoto:hover {
     background-image: linear-gradient(to bottom right, #ff0000, #8500ff);
+    border: none;
 }
 
 .signout__container {
-    display: flex;
+    /* display: flex;
     justify-content: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 10px; */
+    position: absolute;
+    right: 10px;
 }
 
 .signout__button, .return__button {

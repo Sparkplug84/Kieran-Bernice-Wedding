@@ -16,12 +16,12 @@ function HomePage() {
                     onInit={(typewriter) => {
                         typewriter
                         .pauseFor(1000)
-                        .typeString("Welcome to the online message platform of the wedding of Bernice & Kieran")
+                        .typeString("Welcome to the online message platform for the wedding of Bernice & Kieran")
                         .callFunction(revealButton)
                         .start()
                     }}
                 />
-                    {/* <Button className="home__enterButton" component={Link} to="/posts">Enter</Button> */}
+                    <Button className="home__enterButton" component={Link} to="/posts">Enter</Button>
                 { displayButton ? 
                     <Button className="home__enterButton" component={Link} to="/posts">Enter</Button>
                 :

@@ -28,6 +28,7 @@
 .info__email a {
     margin-top: 3px;
     display: flex;
+    color: #000;
 }
 
 .footer__links {

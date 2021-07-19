@@ -83,3 +83,10 @@ body {
     font-size: 25px;
     }
 }
+
+@media (min-width: 1200px) {
+    .container {
+        margin: 0 auto;
+        width: 1200px;
+    }
+}

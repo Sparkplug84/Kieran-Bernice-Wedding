@@ -7,8 +7,8 @@ import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import { db } from '../firebase';
 import firebase from 'firebase'
 import './Post.css';
-// import dayjs from 'dayjs'
-// import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, postUserId, user }) {
 
@@ -21,7 +21,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     const [commentActive, setCommentActive] = useState(false);
     const [commentsArrow, setCommentsArrow] = useState(false)
     
-    // dayjs.extend(relativeTime)
+    dayjs.extend(relativeTime)
 
     // This is used to get the user data of the post owner
     useEffect(() => {
@@ -158,10 +158,15 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
         <div className="post">
             <div className="post__header">
                 <Avatar 
+                    component={Link} 
+                    to={`/${username}/${postUserId}`}
                     className="post__avatar" 
                     alt="" 
                     src={posterImage !== '' && posterImage} />
-                <Button className="post__headerLink" component={Link} to={`/${username}/${postUserId}`}><strong><h3>{username}</h3></strong></Button>
+                <div className="post__userContainer">
+                    <Link className="post__headerLink" to={`/${username}/${postUserId}`}><h3>{username}</h3></Link>
+                    <small>{dayjs(timestamp?.toDate()).fromNow()}</small>
+                </div>
             </div>
 
             <p className="post__text">{caption}</p>
@@ -213,8 +218,6 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
                     </button>
                 </form>
             )}
-            
-            <p>{new Date(timestamp.seconds * 1000).toTimeString()}</p>
 
             <div style={{ transition: "height 0.3s linear" }} className={commentActive ? null : "hidden"}>
                 <div className="post__comments">

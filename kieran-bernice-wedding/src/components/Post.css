@@ -122,12 +122,22 @@
     box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.44);
 }
 
+.dialog__imagePreviewContainer {
+    height: 100px;
+}
+
 .posts h1 {
     text-align: center;
 }
 
 .post__headerLink {
-    text-transform: none !important;
+    text-decoration: none;
+    color: #000;
+}
+
+.post__userContainer {
+    display: flex;
+    flex-direction: column;
 }
 
 .post__image {

@@ -4,7 +4,7 @@ import '../components/Login.css'
 
 function login() {
 
-    document.title = `Kieran & Bernice Wedding | Login`
+    document.title = `Bernice & Kieran Wedding | Login`
 
     return (
         <div className="login__page">

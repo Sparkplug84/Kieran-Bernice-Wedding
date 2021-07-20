@@ -20,7 +20,7 @@ function Posts() {
     const [postsPerPage] = useState(5)
     const user = firebase.auth().currentUser
 
-    document.title = `Kieran & Bernice Wedding | All Posts`
+    document.title = `Bernice & Kieran Wedding | All Posts`
 
     useEffect(() => {
         // this is where the code runs

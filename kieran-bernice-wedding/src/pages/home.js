@@ -3,7 +3,7 @@ import '../components/HomePage.css'
 import HomePage from '../components/HomePage'
 
 function home() {
-    document.title = `Kieran & Bernice Wedding | Home`
+    document.title = `Bernice & Kieran Wedding | Home`
 
     return (
         <HomePage />

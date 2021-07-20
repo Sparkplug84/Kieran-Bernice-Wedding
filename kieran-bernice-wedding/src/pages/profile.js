@@ -51,7 +51,7 @@ function Profile({ user }) {
         document.getElementsByClassName('dialog__input')[0].click()
     }
 
-    document.title = `Kieran & Bernice Wedding | ${username} Profile`
+    document.title = `Bernice & Kieran Wedding | ${username} Profile`
 
     const myAccount = username === user?.displayName
 
@@ -213,16 +213,17 @@ function Profile({ user }) {
             
 
             <div className="profile__header">
-                {
-                    currentUser?.displayName === username ? 
-                        <div className="signout__container">
-                            <Button className="login__signup" onClick={signout}>Sign Out <ExitToAppIcon className="button__icon"/></Button>
-                        </div>
-                    :
-                    console.log()
-                }
+                
 
                 <div className="profile__coverPhoto">
+                    {
+                        currentUser?.displayName === username ? 
+                            <div className="signout__container">
+                                <Button className="login__signup" onClick={signout}>Sign Out <ExitToAppIcon className="button__icon"/></Button>
+                            </div>
+                        :
+                        console.log()
+                    }
                    
                     
                     <h1 id="documentUsername">{username}</h1>

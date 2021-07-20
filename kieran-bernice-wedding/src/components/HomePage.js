@@ -21,7 +21,6 @@ function HomePage() {
                         .start()
                     }}
                 />
-                    <Button className="home__enterButton" component={Link} to="/posts">Enter</Button>
                 { displayButton ? 
                     <Button className="home__enterButton" component={Link} to="/posts">Enter</Button>
                 :

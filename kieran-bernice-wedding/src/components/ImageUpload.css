@@ -136,8 +136,8 @@ progress[value]::-webkit-progress-value {
 }
 
 .dialog__imagePreview {
-    width: 200px;
-    height: auto;
+    width: auto;
+    height: 200px;
     border-radius: 8px;
 }
 

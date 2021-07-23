@@ -73,6 +73,7 @@ function Posts() {
                     </div>
                 </Fragment>
             }
+            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} currentPage={currentPage}/>
             {recentPosts}
             <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} currentPage={currentPage}/>
         </div>

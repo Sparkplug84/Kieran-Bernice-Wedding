@@ -6,6 +6,8 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ReplyIcon from '@material-ui/icons/Reply';
 import CloseIcon from '@material-ui/icons/Close'
+import CreateIcon from '@material-ui/icons/Create';
+import Avatar from "@material-ui/core/Avatar";
 import firebase from 'firebase'
 import { storage, db, auth } from '../firebase'
 import ImageUpload from '../components/ImageUpload'
@@ -18,7 +20,8 @@ function Profile({ user }) {
     const [progress, setProgress] = useState(0)
     const [image, setImage] = useState('')
     const [imageURL, setImageURL] = useState('')
-    const [open, setOpen] = useState(false)
+    const [openPhoto, setOpenPhoto] = useState(false)
+    const [openBio, setOpenBio] = useState(false)
     const [posts, setPosts] = useState([])
     const [profileUserData, setProfileUserData] = useState()
     const [bio, setBio] = useState('')
@@ -56,7 +59,7 @@ function Profile({ user }) {
     const myAccount = username === user?.displayName
 
     const handleClose = () => {
-        setOpen(false)
+        setOpenPhoto(false)
         setImage('')
         setImageURL('')
     }
@@ -65,7 +68,7 @@ function Profile({ user }) {
 
     useEffect(() => {
         if(imageURL !== '') {
-            setOpen(true)
+            setOpenPhoto(true)
         }
     }, [imageURL])
 
@@ -116,35 +119,46 @@ function Profile({ user }) {
             }
         )}
 
-    const addBio = () => {
-        // ADD AND REMOVE SOME ELEMENTS WHEN UPDATING THE BIO
+    const handleCloseBio = () => {
+        setOpenBio(false)
+    }
 
+    const handleOpenBio = () => {
+        setOpenBio(true)
+        // setScroll(scrollType)
     }
 
     const collapseBio = () => {
         // OPPOSITE OF ADD BIO
     }
 
-    const bioSet = (e) => {
-        setBio(e.target.value)
-        if (101 - e.target.value.length < 0 || e.target.value.length === 0) {
-            // Disable upload button if bio is too long
-        } else {
-            // Enable upload buttin if bio is within 101 characters
-        }
-    }
+    // const bioSet = (e) => {
+    //     setBio(e.target.value)
+    //     if (101 - e.target.value.length < 0 || e.target.value.length === 0) {
+    //         // Disable upload button if bio is too long
+    //     } else {
+    //         // Enable upload buttin if bio is within 101 characters
+    //     }
+    // }
 
-    const bioUpdate = (e) => {
-        if (101 - bio.length < 0 || bio.length === 0) {
-            return
-        } else {
+    const addBio = (e) => {
             db.collection('users').doc(uid).update({
                 bio
-            }).then(
-                alert("Please reload the page to see your changes")
-            )
-        }
+            })
+            handleCloseBio()
     }
+    
+    // const bioUpdate = (e) => {
+    //     if (101 - bio.length < 0 || bio.length === 0) {
+    //         return
+    //     } else {
+    //         db.collection('users').doc(uid).update({
+    //             bio
+    //         }).then(
+    //             alert("Please reload the page to see your changes")
+    //         )
+    //     }
+    // }
 
     useEffect(() => {
         db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
@@ -155,25 +169,25 @@ function Profile({ user }) {
         })
     }, [])
 
-    useEffect(() => {
-        db.collection('users').doc(uid).onSnapshot(doc => {
-            if (doc.data()?.bio && doc.data().bio === ""){
-                setBioPresent(false)
-            } else {
-                setBio(doc.data()?.bio)
-                setBioPresent(true)
-            }
-        })
-    }, [])
+    // useEffect(() => {
+    //     db.collection('users').doc(uid).onSnapshot(doc => {
+    //         if (doc.data()?.bio && doc.data().bio === ""){
+    //             setBioPresent(false)
+    //         } else {
+    //             setBio(doc.data()?.bio)
+    //             setBioPresent(true)
+    //         }
+    //     })
+    // }, [])
 
-    useEffect(() => {
-        if(bioPresent === false) {
-            console.log()
-        } else {
-            // ADD EDIT BUTTON
-            // DISPLAY BIO
-        }
-    }, [bioPresent])
+    // useEffect(() => {
+    //     if(bioPresent === false) {
+    //         console.log()
+    //     } else {
+    //         // ADD EDIT BUTTON
+    //         // DISPLAY BIO
+    //     }
+    // }, [bioPresent])
 
     const signout = () => {
         if (currentUser) {
@@ -184,7 +198,7 @@ function Profile({ user }) {
 
     return (
         <div className="profile">
-            <Dialog open={open} onClose={handleClose} scroll='body' className="dialog2">
+            <Dialog open={openPhoto} onClose={handleClose} scroll='body' className="dialog2">
                 <div className="dialog__container">
 
                     <div className="dialogHeader__container">
@@ -207,6 +221,29 @@ function Profile({ user }) {
                         <Button className="dialog__addProfilePhoto" onClick={handleUpload}>Yes <AddAPhotoIcon className="button__icon"/></Button>
                         <Button className="dialog__cancelButton" onClick={handleClose}>Cancel <CloseIcon className="button__icon"/></Button>
                     </div>
+
+                </div>
+            </Dialog>
+
+            <Dialog open={openBio} onClose={handleCloseBio} scroll='body' className="dialog__bio">
+                <div className="dialog__container">
+                    <div className="dialogHeader__container">
+                        <h4 className="dialog__header">ADD OR CHANGE BIO</h4>
+                        <CloseIcon onClick={handleCloseBio} className="dialog__closeIcon"/>
+                    </div>
+
+                    <hr className="dialog__hr"/>
+
+                    <div className="dialog__inputContainer">
+                        <textarea autoFocus className="profile__inputBio" value={bio} placeholder="Who are you..?" onChange={(e) => setBio(e.target.value)} rows="3" />
+                    </div>
+
+
+                    <div className="profile__dialogButtons">
+                        <Button className="dialog__addProfilePhoto" onClick={addBio}>Add Bio <CreateIcon className="button__icon"/></Button>
+                        <Button className="dialog__cancelButton" onClick={handleCloseBio}>Cancel <CloseIcon className="button__icon"/></Button>
+                    </div>
+
                 </div>
             </Dialog>
             
@@ -244,30 +281,50 @@ function Profile({ user }) {
                     }
                 </div>
 
-                <div className={ username === currentUser?.displayName ? null : "profile__container" }>
+                <div className="profile__container">
+                {/* <div className={ username === currentUser?.displayName ? "profile__userContainer" : "profile__container" }> */}
 
                     <div className="profile__body">
-                        
-                        <p className="profile__bioText"></p>
-                        <p onClick={addBio} className="profile__bioEdit">Add Bio</p>
-                        <div className="profile__bioFields">
-                            <textarea className="profile__inputBio" value={bio} placeholder="Who are you?" onChange={bioSet} rows="3" />
-                            <div className="profile__InputButtons">
-                                <button onClick={collapseBio}>Cancel</button>
-                                <button onClick={bioUpdate}>Save</button>
+
+                        <div className="post">
+
+                            <div className="post__header">
+                                <Avatar 
+                                    className="post__avatar" 
+                                    alt="" 
+                                    src={profileUserData?.photoURL} />
+                                <div className="post__userContainer">
+                                    <h3 className="profile__bioEdit">{username} - Bio</h3>
+                                </div>
+                            </div>
+
+                            <div className="profile__bioFields">
+                                { bio === '' ?
+                                    <p>No current bio</p>
+                                :
+                                    <p>{bio}</p>
+                                }
+                                { username === currentUser?.displayName ? 
+                                    <div className="addBio__buttonContainer">
+                                        <Button className="login__signup" onClick={handleOpenBio}>
+                                            ADD/UPDATE BIO <CreateIcon className="button__icon"/>
+                                        </Button>  
+                                    </div>
+                                    : null
+                                }
                             </div>
                         </div>
                         
                     </div>
 
                     <div className="postAndWatch">
-                        {
+                        {/* {
                             username === currentUser?.displayName ? (
                                 <ImageUpload username={username} />
                             ) : (
                                 console.log()
                             )
-                        }
+                        } */}
                         <br />
                         <div className="profile__postsHeader">
                             <h4 className="profile__posts">{username} - Recent Posts</h4>

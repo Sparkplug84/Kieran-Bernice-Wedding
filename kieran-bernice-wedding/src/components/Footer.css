@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 30px;
     min-height: 100px;
     width: 100%;
     background-image: linear-gradient(to bottom right, #ff0000, #8500ff);

@@ -1,5 +1,5 @@
 .profile__container {
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 .profile__coverPhoto {
@@ -29,6 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 170px;
 }
 
 .dialog__container {
@@ -37,10 +38,6 @@
 
 .dialog__input {
     display: none;
-}
-
-.dialog__imageUpload {
-    margin-top: 180px;
 }
 
 .profile__dialogButtons {
@@ -63,6 +60,14 @@
 
 .profileDialog__body {
     margin: 10px 0;
+}
+
+.bio__container {
+    padding: 20px;
+}
+
+.profile__bioFields {
+    padding: 0 20px 20px;
 }
 
 .dialog__hr {
@@ -90,6 +95,11 @@
 
 .signout__button, .return__button {
     width: 200px;
+}
+
+.addBio__buttonContainer {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .button__icon {
@@ -121,6 +131,9 @@
         height: 150px;
     }
     .dialog__imageUpload {
-        margin-top: 130px;
+        margin-top: 20px;
+    }
+    .profile__title {
+        margin-top: 115px;
     }
 }

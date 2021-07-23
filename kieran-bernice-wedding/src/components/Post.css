@@ -122,7 +122,8 @@
 }
 
 .dialog__imagePreviewContainer {
-    height: 100px;
+    height: 200px;
+    margin-bottom: 20px;
 }
 
 .posts h1 {

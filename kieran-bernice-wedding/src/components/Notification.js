@@ -100,7 +100,7 @@ function Notification({user}) {
                 if(user && doc.data().username == user.displayName) { // Checking for only the currently logged in user posts
                     db.collection('posts').doc(doc.id).collection('comments').onSnapshot((snapshot2) => {
                         snapshot2.docs.map(doc2 => {
-                            console.log(doc2.data())
+                            // console.log(doc2.data())
                             if(user && doc2.data().username !== user.displayName) {
                                 dispatch({
                                     type: 'ADD_TO_NOTIFICATIONS',

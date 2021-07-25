@@ -169,16 +169,16 @@ function Profile({ user }) {
         })
     }, [])
 
-    // useEffect(() => {
-    //     db.collection('users').doc(uid).onSnapshot(doc => {
-    //         if (doc.data()?.bio && doc.data().bio === ""){
-    //             setBioPresent(false)
-    //         } else {
-    //             setBio(doc.data()?.bio)
-    //             setBioPresent(true)
-    //         }
-    //     })
-    // }, [])
+    useEffect(() => {
+        db.collection('users').doc(uid).onSnapshot(doc => {
+            if (doc.data()?.bio && doc.data().bio === ""){
+                setBioPresent(false)
+            } else {
+                setBio(doc.data()?.bio)
+                setBioPresent(true)
+            }
+        })
+    }, [])
 
     // useEffect(() => {
     //     if(bioPresent === false) {

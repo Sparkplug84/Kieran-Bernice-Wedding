@@ -128,7 +128,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
             username: user.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             photoURL: user.photoURL,
-            uid: user?.uid
+            uid: user.uid
         })
         setComment('')
         setCommentActive(true)
@@ -142,7 +142,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
 
     // async function getImageURL(uid) {
     //     return (await db.collection("users").doc(uid).get()).data().photoURL
-    // }
+    //   }
 
     // useEffect(() => {
     //     if(comment?.uid) {
@@ -152,7 +152,7 @@ function Post({ postId, username, caption, imageUrl, totalLikes, timestamp, post
     //     }
     // },[comment?.uid])
 
-    // console.log(comment.uid)
+    console.log(comment?.uid)
 
     return (
         <div className="post">
